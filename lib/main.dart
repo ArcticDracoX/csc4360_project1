@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
-void main() {
+void main()
+{
   runApp(RecipeMealPlannerApp());
 }
 
-class RecipeMealPlannerApp extends StatelessWidget {
+class RecipeMealPlannerApp extends StatelessWidget 
+{
+  const RecipeMealPlannerApp({super.key});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return MaterialApp(
       title: 'Recipe and Meal Planner',
       theme: ThemeData(
@@ -19,59 +24,71 @@ class RecipeMealPlannerApp extends StatelessWidget {
 }
 
 // Home Page Screen
-class HomePage extends StatelessWidget {
+class HomePage extends StatelessWidget
+{
+  const HomePage({super.key});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
         centerTitle: true,
         backgroundColor: Colors.pinkAccent, 
       ),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {
+              onPressed: ()
+              {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => HomeScreen()),
                 );
               },
-              child: Text('View Recipes'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.pinkAccent,
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
               ),
+              child: Text('View Recipes'),
             ),
+            
             SizedBox(height: 20), // spacing
+
             ElevatedButton(
-              onPressed: () {
+              onPressed: ()
+              {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MealPlanningScreen()),
                 );
               },
-              child: Text('Meal Planning'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.pinkAccent,
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
               ),
+              child: Text('Meal Planning'),
             ),
+
             SizedBox(height: 20), 
+
             ElevatedButton(
-              onPressed: () {
+              onPressed: ()
+              {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => GroceryListScreen()),
                 );
               },
-              child: Text('Grocery List'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.pinkAccent,
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
               ),
+              child: Text('Grocery List'),
             ),
           ],
         ),
@@ -81,9 +98,13 @@ class HomePage extends StatelessWidget {
 }
 
 // Recipes Screen
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatelessWidget
+{
+  const HomeScreen({super.key});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       appBar: AppBar(
         title: Text('Recipes'),
@@ -102,7 +123,8 @@ class HomeScreen extends StatelessWidget {
   }
 
   // Helper method to create recipe card
-  Widget recipeCard(BuildContext context, String title, IconData icon, Widget nextScreen) {
+  Widget recipeCard(BuildContext context, String title, IconData icon, Widget nextScreen)
+  {
     return Card(
       color: Colors.pink[50], 
       child: ListTile(
@@ -121,9 +143,13 @@ class HomeScreen extends StatelessWidget {
 }
 
 // Recipe Detail Screen UI
-class RecipeDetailScreen extends StatelessWidget {
+class RecipeDetailScreen extends StatelessWidget
+{
+  const RecipeDetailScreen({super.key});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       appBar: AppBar(
         title: Text('Recipe Details'),
@@ -143,7 +169,8 @@ class RecipeDetailScreen extends StatelessWidget {
             Text('1. Boil spaghetti.\n2. Cook beef.\n3. Mix with sauce.'),
             Spacer(),
             ElevatedButton.icon(
-              onPressed: () {
+              onPressed: ()
+              {
                 // Save to Favorites action
               },
               icon: Icon(Icons.favorite, color: Colors.white),
@@ -161,7 +188,10 @@ class RecipeDetailScreen extends StatelessWidget {
 }
 
 // Meal Planning Screen UI
-class MealPlanningScreen extends StatelessWidget {
+class MealPlanningScreen extends StatelessWidget
+{
+  const MealPlanningScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,11 +209,11 @@ class MealPlanningScreen extends StatelessWidget {
               onPressed: () {
                 // need to Add meal functionality
               },
-              child: Text('Add Meal', style: TextStyle(fontSize: 18)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.pinkAccent, 
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
               ),
+              child: Text('Add Meal', style: TextStyle(fontSize: 18)),
             ),
           ],
         ),
@@ -193,7 +223,10 @@ class MealPlanningScreen extends StatelessWidget {
 }
 
 // Grocery List Screen UI
-class GroceryListScreen extends StatefulWidget {
+class GroceryListScreen extends StatefulWidget
+{
+  const GroceryListScreen({super.key});
+
   @override
   _GroceryListScreenState createState() => _GroceryListScreenState();
 }
