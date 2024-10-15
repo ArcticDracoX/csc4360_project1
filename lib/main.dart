@@ -228,11 +228,13 @@ class GroceryListScreen extends StatefulWidget
   const GroceryListScreen({super.key});
 
   @override
-  _GroceryListScreenState createState() => _GroceryListScreenState();
+  State<GroceryListScreen> createState() => _GroceryListScreenState();
 }
 
-class _GroceryListScreenState extends State<GroceryListScreen> {
-  final List<Map<String, dynamic>> _groceryItems = [
+class _GroceryListScreenState extends State<GroceryListScreen>
+{
+  final List<Map<String, dynamic>> _groceryItems =
+  [
     {'name': 'Spaghetti', 'isChecked': false},
     {'name': 'Ground beef', 'isChecked': false},
     {'name': 'Tomato sauce', 'isChecked': false},
