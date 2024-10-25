@@ -15,7 +15,7 @@ class RecipeAppDatabase
   static const recipeDesc = 'description';
   static const recipeSteps = 'steps';
 
-  // Ingredients
+  // Ingredients references Recipes
   static const ingredients = 'ingredients';
   static const ingredientsId = '_id';
   static const ingredientsName = 'name';
@@ -136,6 +136,16 @@ class RecipeAppDatabase
     );
   }
 
+  Future<List<Recipe>> searchR(String keyword) async
+  {
+    var rows = await _db.query(
+      recipe,
+      where: 'name LIKE ?',
+      whereArgs: ['%$keyword%']
+    );
+    return rows.map((recipe) => Recipe.fromMap(recipe)).toList();
+  }
+
 
   // Ingredients Functions
   Future<int> insertI(Ingredients row) async
@@ -146,7 +156,7 @@ class RecipeAppDatabase
   Future<List<Ingredients>> queryAllRowsI() async
   {
     var rows = await _db.query(ingredients);
-    return rows.map((recipe) => Ingredients.fromMap(recipe)).toList();
+    return rows.map((ingredients) => Ingredients.fromMap(ingredients)).toList();
   }
 
   Future<int> queryRowCountI() async
@@ -212,6 +222,16 @@ class RecipeAppDatabase
     );
   }
 
+  Future<List<ShoppingList>> searchS(String keyword) async
+  {
+    var rows = await _db.query(
+      shoppingList,
+      where: 'name LIKE ?',
+      whereArgs: ['%$keyword%']
+    );
+    return rows.map((shoppingList) => ShoppingList.fromMap(shoppingList)).toList();
+  }
+
 
   // Planner Functions
   Future<int> insertP(Planner row) async
@@ -241,6 +261,16 @@ class RecipeAppDatabase
     );
   }
 
+  Future<List<Planner>> searchP(String keyword) async
+  {
+    var rows = await _db.query(
+      planner,
+      where: 'name LIKE ?',
+      whereArgs: ['%$keyword%']
+    );
+    return rows.map((planner) => Planner.fromMap(planner)).toList();
+  }
+
   Future<int> deleteP(int id) async
   {
     return await _db.delete(
@@ -259,7 +289,7 @@ class RecipeAppDatabase
   Future<List<Recipe>> queryAllRowsF() async
   {
     var rows = await _db.query(favourites);
-    return rows.map((recipe) => Recipe.fromMap(favourites)).toList();
+    return rows.map((favourites) => Recipe.fromMap(favourites)).toList();
   }
 
   Future<int> queryRowCountF() async
@@ -285,5 +315,15 @@ class RecipeAppDatabase
       where: '$favId = ?',
       whereArgs: [id],
     );
+  }
+
+  Future<List<Favourites>> searchF(String keyword) async
+  {
+    var rows = await _db.query(
+      favourites,
+      where: 'name LIKE ?',
+      whereArgs: ['%$keyword%']
+    );
+    return rows.map((favourites) => Favourites.fromMap(favourites)).toList();
   }
 }
