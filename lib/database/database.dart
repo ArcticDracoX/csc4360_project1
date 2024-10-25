@@ -1,0 +1,289 @@
+import 'package:path/path.dart';
+import 'package:recipe_meal_planner/database/database_items.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
+
+class RecipeAppDatabase
+{
+  static const _databaseName = "RecipeAppDatabase.db";
+  static const _databaseVersion = 1;
+
+  // Recipes
+  static const recipe = 'recipes';
+  static const recipeId = '_id';
+  static const recipeTitle = 'title';
+  static const recipeDesc = 'description';
+  static const recipeSteps = 'steps';
+
+  // Ingredients
+  static const ingredients = 'ingredients';
+  static const ingredientsId = '_id';
+  static const ingredientsName = 'name';
+  static const ingredientsAmount = 'amount';
+  static const ingredientsRecipe = 'recipeKey';
+
+  // Shopping List references Ingredients
+  static const shoppingList = 'shopping';
+  static const shoppingId = '_id';
+  static const shoppingIngredients = 'ingredientKey';
+
+  // Planner references Recipes
+  static const planner = 'planner';
+  static const plannerId = '_id';
+  static const plannerRecipe = 'recipeKey';
+
+  // Favourites references Recipes
+  static const favourites = 'favourites';
+  static const favId = 'favId';
+  static const favRecipe = 'recipeKey';
+
+  late Database _db;
+
+  RecipeAppDatabase.init();
+
+  Future<void> init() async
+  {
+    final documentsDirectory = await getApplicationDocumentsDirectory();
+    final path = join(documentsDirectory.path, _databaseName);
+    _db = await openDatabase(
+      path,
+      version: _databaseVersion,
+      onCreate: _onCreate,
+    );
+  }
+
+  Future _onCreate(Database db, int version) async
+  {
+    await db.execute('''
+      CREATE TABLE $recipe (
+        $recipeId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $recipeTitle TEXT NOT NULL,
+        $recipeDesc TEXT NOT NULL,
+        $recipeSteps TEXT NOT NULL
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE $ingredients (
+        $ingredientsId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $ingredientsName TEXT NOT NULL,
+        $ingredientsAmount TEXT NOT NULL,
+        $ingredientsRecipe INTEGER NOT NULL,
+        FOREIGN KEY($ingredientsRecipe) REFERENCES recipe($recipeId)
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE $shoppingList (
+        $shoppingId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $shoppingIngredients INTEGER NOT NULL,
+        FOREIGN KEY($shoppingIngredients) REFERENCES ingredients($ingredientsId)
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE $planner (
+        $plannerId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $plannerRecipe INTEGER NOT NULL,
+        FOREIGN KEY($plannerRecipe) REFERENCES recipe($recipeId)
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE $favourites (
+        $favId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $favRecipe INTEGER NOT NULL,
+        FOREIGN KEY($favRecipe) REFERENCES recipe($recipeId)
+      )
+    ''');
+  }
+
+
+  // Recipe Functions
+  Future<int> insertR(Map<String, dynamic> row) async
+  {
+    return await _db.insert(recipe, row);
+  }
+
+  Future<List<Map<String, dynamic>>> queryAllRowsR() async
+  {
+    return await _db.query(recipe);
+  }
+
+  Future<int> queryRowCountR() async
+  {
+    final results = await _db.rawQuery('SELECT COUNT(*) FROM $recipe');
+    return Sqflite.firstIntValue(results) ?? 0;
+  }
+
+  Future<int> updateR(Map<String, dynamic> row) async
+  {
+    int id = row[recipeId];
+    return await _db.update(
+      recipe,
+      row,
+      where: '$recipeId = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> deleteR(int id) async
+  {
+    return await _db.delete(
+      recipe,
+      where: '$recipeId = ?',
+      whereArgs: [id],
+    );
+  }
+
+
+  // Ingredients Functions
+  Future<int> insertI(Map<String, dynamic> row) async
+  {
+    return await _db.insert(ingredients, row);
+  }
+
+  Future<List<Map<String, dynamic>>> queryAllRowsI() async
+  {
+    return await _db.query(ingredients);
+  }
+
+  Future<int> queryRowCountI() async
+  {
+    final results = await _db.rawQuery('SELECT COUNT(*) FROM $ingredients');
+    return Sqflite.firstIntValue(results) ?? 0;
+  }
+
+  Future<int> updateI(Map<String, dynamic> row) async
+  {
+    int id = row[ingredientsId];
+    return await _db.update(
+      ingredients,
+      row,
+      where: '$ingredientsId = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> deleteI(int id) async
+  {
+    return await _db.delete(
+      ingredients,
+      where: '$ingredientsId = ?',
+      whereArgs: [id],
+    );
+  }
+
+
+// Shopping List Functions
+Future<int> insertS(Map<String, dynamic> row) async
+  {
+    return await _db.insert(shoppingList, row);
+  }
+
+  Future<List<Map<String, dynamic>>> queryAllRowsS() async
+  {
+    return await _db.query(shoppingList);
+  }
+
+  Future<int> queryRowCountS() async
+  {
+    final results = await _db.rawQuery('SELECT COUNT(*) FROM $shoppingList');
+    return Sqflite.firstIntValue(results) ?? 0;
+  }
+
+  Future<int> updateS(Map<String, dynamic> row) async
+  {
+    int id = row[ingredientsId];
+    return await _db.update(
+      shoppingList,
+      row,
+      where: '$shoppingId = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> deleteS(int id) async
+  {
+    return await _db.delete(
+      shoppingList,
+      where: '$shoppingId = ?',
+      whereArgs: [id],
+    );
+  }
+
+
+// Planner Functions
+Future<int> insertP(Map<String, dynamic> row) async
+  {
+    return await _db.insert(planner, row);
+  }
+
+  Future<List<Map<String, dynamic>>> queryAllRowsP() async
+  {
+    return await _db.query(planner);
+  }
+
+  Future<int> queryRowCountP() async
+  {
+    final results = await _db.rawQuery('SELECT COUNT(*) FROM $planner');
+    return Sqflite.firstIntValue(results) ?? 0;
+  }
+
+  Future<int> updateP(Map<String, dynamic> row) async
+  {
+    int id = row[ingredientsId];
+    return await _db.update(
+      planner,
+      row,
+      where: '$plannerId = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> deleteP(int id) async
+  {
+    return await _db.delete(
+      planner,
+      where: '$plannerId = ?',
+      whereArgs: [id],
+    );
+  }
+
+//  Functions
+Future<int> insertF(Map<String, dynamic> row) async
+  {
+    return await _db.insert(favourites, row);
+  }
+
+  Future<List<Map<String, dynamic>>> queryAllRowsF() async
+  {
+    return await _db.query(favourites);
+  }
+
+  Future<int> queryRowCountF() async
+  {
+    final results = await _db.rawQuery('SELECT COUNT(*) FROM $favourites');
+    return Sqflite.firstIntValue(results) ?? 0;
+  }
+
+  Future<int> updateF(Map<String, dynamic> row) async
+  {
+    int id = row[ingredientsId];
+    return await _db.update(
+      ingredients,
+      row,
+      where: '$favId = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> deleteF(int id) async
+  {
+    return await _db.delete(
+      favourites,
+      where: '$favId = ?',
+      whereArgs: [id],
+    );
+  }
+}
