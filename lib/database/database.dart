@@ -100,14 +100,15 @@ class RecipeAppDatabase
 
 
   // Recipe Functions
-  Future<int> insertR(Map<String, dynamic> row) async
+  Future<int> insertR(Recipe row) async
   {
-    return await _db.insert(recipe, row);
+    return await _db.insert(recipe, row.toMap());
   }
 
-  Future<List<Map<String, dynamic>>> queryAllRowsR() async
+  Future<List<Recipe>> queryAllRowsR() async
   {
-    return await _db.query(recipe);
+    var rows = await _db.query(recipe);
+    return rows.map((recipe) => Recipe.fromMap(recipe)).toList();
   }
 
   Future<int> queryRowCountR() async
@@ -116,14 +117,13 @@ class RecipeAppDatabase
     return Sqflite.firstIntValue(results) ?? 0;
   }
 
-  Future<int> updateR(Map<String, dynamic> row) async
+  Future<int> updateR(Recipe row) async
   {
-    int id = row[recipeId];
     return await _db.update(
       recipe,
-      row,
+      row.toMap(),
       where: '$recipeId = ?',
-      whereArgs: [id],
+      whereArgs: [row.id],
     );
   }
 
@@ -138,14 +138,15 @@ class RecipeAppDatabase
 
 
   // Ingredients Functions
-  Future<int> insertI(Map<String, dynamic> row) async
+  Future<int> insertI(Ingredients row) async
   {
-    return await _db.insert(ingredients, row);
+    return await _db.insert(ingredients, row.toMap());
   }
 
-  Future<List<Map<String, dynamic>>> queryAllRowsI() async
+  Future<List<Ingredients>> queryAllRowsI() async
   {
-    return await _db.query(ingredients);
+    var rows = await _db.query(ingredients);
+    return rows.map((recipe) => Ingredients.fromMap(recipe)).toList();
   }
 
   Future<int> queryRowCountI() async
@@ -154,14 +155,13 @@ class RecipeAppDatabase
     return Sqflite.firstIntValue(results) ?? 0;
   }
 
-  Future<int> updateI(Map<String, dynamic> row) async
+  Future<int> updateI(Ingredients row) async
   {
-    int id = row[ingredientsId];
     return await _db.update(
       ingredients,
-      row,
+      row.toMap(),
       where: '$ingredientsId = ?',
-      whereArgs: [id],
+      whereArgs: [row.id],
     );
   }
 
@@ -175,15 +175,16 @@ class RecipeAppDatabase
   }
 
 
-// Shopping List Functions
-Future<int> insertS(Map<String, dynamic> row) async
+  // Shopping List Functions
+  Future<int> insertS(ShoppingList row) async
   {
-    return await _db.insert(shoppingList, row);
+    return await _db.insert(shoppingList, row.toMap());
   }
 
-  Future<List<Map<String, dynamic>>> queryAllRowsS() async
+  Future<List<ShoppingList>> queryAllRowsS() async
   {
-    return await _db.query(shoppingList);
+    var rows = await _db.query(shoppingList);
+    return rows.map((shoppingList) => ShoppingList.fromMap(shoppingList)).toList();
   }
 
   Future<int> queryRowCountS() async
@@ -192,14 +193,13 @@ Future<int> insertS(Map<String, dynamic> row) async
     return Sqflite.firstIntValue(results) ?? 0;
   }
 
-  Future<int> updateS(Map<String, dynamic> row) async
+  Future<int> updateS(ShoppingList row) async
   {
-    int id = row[ingredientsId];
     return await _db.update(
       shoppingList,
-      row,
-      where: '$shoppingId = ?',
-      whereArgs: [id],
+      row.toMap(),
+      where: '$shoppingList = ?',
+      whereArgs: [row.id],
     );
   }
 
@@ -207,21 +207,22 @@ Future<int> insertS(Map<String, dynamic> row) async
   {
     return await _db.delete(
       shoppingList,
-      where: '$shoppingId = ?',
+      where: '$shoppingList = ?',
       whereArgs: [id],
     );
   }
 
 
-// Planner Functions
-Future<int> insertP(Map<String, dynamic> row) async
+  // Planner Functions
+  Future<int> insertP(Planner row) async
   {
-    return await _db.insert(planner, row);
+    return await _db.insert(planner, row.toMap());
   }
 
-  Future<List<Map<String, dynamic>>> queryAllRowsP() async
+  Future<List<Planner>> queryAllRowsP() async
   {
-    return await _db.query(planner);
+    var rows = await _db.query(planner);
+    return rows.map((planner) => Planner.fromMap(planner)).toList();
   }
 
   Future<int> queryRowCountP() async
@@ -230,14 +231,13 @@ Future<int> insertP(Map<String, dynamic> row) async
     return Sqflite.firstIntValue(results) ?? 0;
   }
 
-  Future<int> updateP(Map<String, dynamic> row) async
+  Future<int> updateP(Planner row) async
   {
-    int id = row[ingredientsId];
     return await _db.update(
       planner,
-      row,
+      row.toMap(),
       where: '$plannerId = ?',
-      whereArgs: [id],
+      whereArgs: [row.id],
     );
   }
 
@@ -250,15 +250,16 @@ Future<int> insertP(Map<String, dynamic> row) async
     );
   }
 
-//  Functions
-Future<int> insertF(Map<String, dynamic> row) async
+// Favourites Functions
+  Future<int> insertF(Favourites row) async
   {
-    return await _db.insert(favourites, row);
+    return await _db.insert(favourites, row.toMap());
   }
 
-  Future<List<Map<String, dynamic>>> queryAllRowsF() async
+  Future<List<Recipe>> queryAllRowsF() async
   {
-    return await _db.query(favourites);
+    var rows = await _db.query(favourites);
+    return rows.map((recipe) => Recipe.fromMap(favourites)).toList();
   }
 
   Future<int> queryRowCountF() async
@@ -267,14 +268,13 @@ Future<int> insertF(Map<String, dynamic> row) async
     return Sqflite.firstIntValue(results) ?? 0;
   }
 
-  Future<int> updateF(Map<String, dynamic> row) async
+  Future<int> updateF(Favourites row) async
   {
-    int id = row[ingredientsId];
     return await _db.update(
-      ingredients,
-      row,
+      favourites,
+      row.toMap(),
       where: '$favId = ?',
-      whereArgs: [id],
+      whereArgs: [row.id],
     );
   }
 
