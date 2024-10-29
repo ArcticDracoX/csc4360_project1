@@ -4,7 +4,6 @@ import 'screens/home_screen.dart';
 import 'screens/favorites_screen.dart';
 import 'screens/meal_planner_screen.dart';
 import 'screens/shopping_list_screen.dart';
-import 'screens/profile_screen.dart';
 
 void main() {
   runApp(const RecipeMealPlannerApp());
@@ -56,7 +55,6 @@ class _BottomNavControllerState extends State<BottomNavController> {
     FavoritesScreen(favorites: favorites),        
     MealPlannerScreen(),
     ShoppingListScreen(),
-    ProfileScreen(),
   ];
 
   @override
@@ -81,7 +79,6 @@ class _BottomNavControllerState extends State<BottomNavController> {
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
           BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Meal Planner'),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Shopping List'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
     );
