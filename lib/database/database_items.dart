@@ -16,10 +16,10 @@ class Recipe
 
    Recipe.fromMap(dynamic obj)
    {
-    this.id = obj['_id'];
-    this.title = obj['title'];
-    this.description = obj['description'];
-    this.steps = obj['steps'];
+    id = obj['_id'];
+    title = obj['title'];
+    description = obj['description'];
+    steps = obj['steps'];
   }
 
   Map<String, dynamic> toMap()
@@ -54,10 +54,10 @@ class Ingredients
 
    Ingredients.fromMap(dynamic obj)
    {
-    this.id = obj['_id'];
-    this.name = obj['name'];
-    this.amount = obj['amount'];
-    this.recipe = obj['recipeKey'];
+    id = obj['_id'];
+    name = obj['name'];
+    amount = obj['amount'];
+    recipe = obj['recipeKey'];
   }
 
   Map<String, dynamic> toMap()
@@ -88,8 +88,8 @@ class ShoppingList
 
    ShoppingList.fromMap(dynamic obj)
    {
-    this.id = obj['_id'];
-    this.ingredient = obj['ingredientKey'];
+    id = obj['_id'];
+    ingredient = obj['ingredientKey'];
   }
 
   Map<String, dynamic> toMap()
@@ -118,8 +118,8 @@ class Planner
 
    Planner.fromMap(dynamic obj)
    {
-    this.id = obj['_id'];
-    this.recipe = obj['recipeKey'];
+    id = obj['_id'];
+    recipe = obj['recipeKey'];
   }
 
   Map<String, dynamic> toMap()
@@ -148,8 +148,8 @@ class Favourites
 
    Favourites.fromMap(dynamic obj)
    {
-    this.id = obj['_id'];
-    this.recipe = obj['recipeKey'];
+    id = obj['_id'];
+    recipe = obj['recipeKey'];
   }
 
   Map<String, dynamic> toMap()
