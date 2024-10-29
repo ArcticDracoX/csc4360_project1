@@ -1,170 +1,220 @@
 import 'package:flutter/material.dart';
+import 'recipe_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+  final void Function(Map<String, dynamic>) onFavoriteToggle;
+
+  const HomeScreen({Key? key, required this.onFavoriteToggle}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    
+    final List<Map<String, dynamic>> recipes = [
+      {
+        'name': 'Garlic Tofu Skillet',
+        'image': 'assets/images/recipe1.jpg',
+        'ingredients': ['Tofu', 'Garlic', 'Soy sauce', 'Vegetable oil', 'Green onions'],
+        'instructions': [
+          'Cut tofu into cubes.',
+          'Heat oil in skillet, add garlic, then tofu.',
+          'Stir in soy sauce and cook until tofu is golden.',
+          'Garnish with green onions and serve.'
+        ]
+      },
+      {
+        'name': 'Strawberry Smoothie',
+        'image': 'assets/images/straw.jpg',
+        'ingredients': ['Strawberries', 'Banana', 'Yogurt', 'Honey', 'Ice cubes'],
+        'instructions': [
+          'Combine all ingredients in a blender.',
+          'Blend until smooth and creamy.',
+          'Pour into a glass and serve chilled.'
+        ]
+      },
+      {
+        'name': 'Classic Lasagna',
+        'image': 'assets/images/lasagna.jpg',
+        'ingredients': ['Lasagna noodles', 'Ground beef', 'Tomato sauce', 'Ricotta cheese', 'Mozzarella cheese'],
+        'instructions': [
+          'Preheat oven to 375°F (190°C).',
+          'Layer noodles, sauce, and cheeses in a baking dish.',
+          'Repeat layers, ending with mozzarella.',
+          'Bake for 45 minutes or until bubbly.'
+        ]
+      },
+      {
+        'name': 'Caesar Salad',
+        'image': 'assets/images/salad.jpg',
+        'ingredients': ['Romaine lettuce', 'Caesar dressing', 'Parmesan cheese', 'Croutons'],
+        'instructions': [
+          'Chop lettuce and place in a bowl.',
+          'Add Caesar dressing and toss to coat.',
+          'Top with Parmesan and croutons and serve.'
+        ]
+      },
+      {
+        'name': 'Pancakes',
+        'image': 'assets/images/pancakes.jpg',
+        'ingredients': ['Flour', 'Milk', 'Eggs', 'Sugar', 'Baking powder', 'Butter'],
+        'instructions': [
+          'Mix all ingredients in a bowl.',
+          'Pour batter onto a hot griddle and cook until bubbles form.',
+          'Flip and cook until golden brown on both sides.'
+        ]
+      },
+      {
+        'name': 'Spaghetti Carbonara',
+        'image': 'assets/images/carbonara.jpg',
+        'ingredients': ['Spaghetti', 'Eggs', 'Parmesan cheese', 'Bacon', 'Black pepper'],
+        'instructions': [
+          'Cook spaghetti according to package instructions.',
+          'In a bowl, mix eggs, cheese, and pepper.',
+          'Add cooked spaghetti to the egg mixture and toss.',
+          'Top with crispy bacon and serve.'
+        ]
+      },
+      {
+        'name': 'Chicken Curry',
+        'image': 'assets/images/curry.jpg',
+        'ingredients': ['Chicken breast', 'Coconut milk', 'Curry powder', 'Onion', 'Garlic', 'Ginger'],
+        'instructions': [
+          'Sauté onion, garlic, and ginger until fragrant.',
+          'Add chicken and cook until browned.',
+          'Add coconut milk and curry powder and simmer.',
+          'Cook until chicken is fully cooked and sauce thickens.'
+        ]
+      },
+      {
+        'name': 'Avocado Toast',
+        'image': 'assets/images/toast.jpg',
+        'ingredients': ['Bread', 'Avocado', 'Salt', 'Pepper', 'Chili flakes'],
+        'instructions': [
+          'Toast the bread slices.',
+          'Mash avocado and spread on toast.',
+          'Season with salt, pepper, and chili flakes.'
+        ]
+      },
+      {
+        'name': 'Chocolate Cake',
+        'image': 'assets/images/cake.jpg',
+        'ingredients': ['Flour', 'Sugar', 'Cocoa powder', 'Eggs', 'Butter', 'Vanilla extract'],
+        'instructions': [
+          'Preheat oven to 350°F (175°C).',
+          'Mix all ingredients and pour into a greased pan.',
+          'Bake for 30 minutes or until a toothpick comes out clean.'
+        ]
+      },
+      {
+        'name': 'Beef Tacos',
+        'image': 'assets/images/beef.jpg',
+        'ingredients': ['Ground beef', 'Taco seasoning', 'Tortillas', 'Lettuce', 'Cheese', 'Salsa'],
+        'instructions': [
+          'Cook beef with taco seasoning.',
+          'Fill tortillas with beef, lettuce, cheese, and salsa.',
+          'Serve and enjoy.'
+        ]
+      },
+    ];
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Recipes'),
-        backgroundColor: Colors.teal,
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFE1F5C4), Color(0xFF1E8F91)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search for recipes...',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(16.0, 60.0, 16.0, 20.0),
+              child: Text(
+                'Recipes',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontFamily: 'Serif', // Optional custom font
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Text('Recipe Categories', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            _buildCategorySection(),
-            SizedBox(height: 20),
-            Text('Recommended Recipes', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            _buildRecommendedRecipes(),
-            SizedBox(height: 20),
-            Text('Popular Recipes', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            _buildPopularRecipes(),
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(16.0),
+                itemCount: recipes.length,
+                itemBuilder: (context, index) {
+                  return _buildRecipeCard(context, recipes[index]);
+                },
+              ),
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Meal Planner'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Shopping List'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-        selectedItemColor: Colors.teal,
-        unselectedItemColor: Colors.grey,
-      ),
     );
   }
 
-  Widget _buildCategorySection() {
-    final categories = ['Courses', 'Cuisines', 'Diets', 'Dishes'];
-    final colors = [Colors.redAccent, Colors.blueAccent, Colors.greenAccent, Colors.orangeAccent];
-    final images = [
-      'assets/images/courses.jpg',
-      'assets/images/cuisines.jpg',
-      'assets/images/diets.jpg',
-      'assets/images/dishes.jpg',
-    ];
-
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(categories.length, (index) {
-          return GestureDetector(
-            onTap: () {
-              // Add navigation to category details here
-            },
-            child: Card(
-              shape: RoundedRectangleBorder(
+  Widget _buildRecipeCard(BuildContext context, Map<String, dynamic> recipe) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RecipeDetailScreen(
+              recipeName: recipe['name'] as String,
+              recipeImage: recipe['image'] as String,
+              ingredients: recipe['ingredients'] as List<String>,
+              instructions: recipe['instructions'] as List<String>,
+              onFavoriteToggle: () => onFavoriteToggle(recipe),
+            ),
+          ),
+        );
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        elevation: 8,
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: Image.asset(
+                recipe['image'] as String,
+                width: double.infinity,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
+                gradient: LinearGradient(
+                  colors: [Colors.black.withOpacity(0.5), Colors.transparent],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                ),
               ),
-              elevation: 5,
-              color: colors[index],
-              child: Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15.0),
-                    child: Image.asset(images[index], width: 120, height: 120, fit: BoxFit.cover),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    recipe['name'] as String,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(categories[index], style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white)),
-                  ),
-                ],
+                ),
               ),
             ),
-          );
-        }),
+          ],
+        ),
       ),
-    );
-  }
-
-  Widget _buildRecommendedRecipes() {
-    final recipes = [
-      {'name': 'Garlic Tofu Skillet', 'image': 'assets/images/recipe1.jpg'},
-      {'name': 'Strawberry Smoothie', 'image': 'assets/images/recipe2.jpg'},
-      {'name': 'Classic Lasagna', 'image': 'assets/images/recipe3.jpg'},
-      {'name': 'Caesar Salad', 'image': 'assets/images/recipe4.jpg'},
-      {'name': 'Pancakes', 'image': 'assets/images/recipe5.jpg'},
-    ];
-
-    return Column(
-      children: recipes.map((recipe) {
-        return GestureDetector(
-          onTap: () {
-            // Add navigation to recipe details here
-          },
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            elevation: 5,
-            margin: EdgeInsets.symmetric(vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: Image.asset(recipe['image']!, width: double.infinity, height: 200, fit: BoxFit.cover),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(recipe['name']!, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                ),
-              ],
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  Widget _buildPopularRecipes() {
-    final recipes = [
-      {'name': 'Spaghetti Carbonara', 'image': 'assets/images/recipe6.jpg'},
-      {'name': 'Chicken Curry', 'image': 'assets/images/recipe7.jpg'},
-      {'name': 'Avocado Toast', 'image': 'assets/images/recipe8.jpg'},
-      {'name': 'Chocolate Cake', 'image': 'assets/images/recipe9.jpg'},
-      {'name': 'Beef Tacos', 'image': 'assets/images/recipe10.jpg'},
-    ];
-
-    return Column(
-      children: recipes.map((recipe) {
-        return GestureDetector(
-          onTap: () {
-            // Add navigation to recipe details here
-          },
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            elevation: 5,
-            margin: EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.horizontal(left: Radius.circular(15.0)),
-                  child: Image.asset(recipe['image']!, width: 100, height: 100, fit: BoxFit.cover),
-                ),
-                SizedBox(width: 10),
-                Text(recipe['name']!, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-              ],
-            ),
-          ),
-        );
-      }).toList(),
     );
   }
 }
