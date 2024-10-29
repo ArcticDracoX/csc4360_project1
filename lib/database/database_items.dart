@@ -19,7 +19,7 @@ class Recipe
     this.id = obj['_id'];
     this.title = obj['title'];
     this.description = obj['description'];
-    this.steps = obj['directions'];
+    this.steps = obj['steps'];
   }
 
   Map<String, dynamic> toMap()
@@ -29,7 +29,7 @@ class Recipe
       '_id': id,
       'title': title,
       'description': description,
-      'steps':steps,
+      'steps': steps,
     };
 
     return map;
