@@ -1,4 +1,5 @@
 import 'package:path/path.dart';
+import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -15,16 +16,10 @@ class RecipeAppDatabase
   static const recipeId = '_id';
   static const recipeTitle = 'title';
   static const recipeDesc = 'description';
+  static const recipeIngredients = 'ingredients';
   static const recipeSteps = 'steps';
 
-  // Ingredients references Recipes
-  static const ingredients = 'ingredients';
-  static const ingredientsId = '_id';
-  static const ingredientsName = 'name';
-  static const ingredientsAmount = 'amount';
-  static const ingredientsRecipe = 'recipeKey';
-
-  // Shopping List references Ingredients
+  // Shopping List references Recipes
   static const shoppingList = 'shopping';
   static const shoppingId = '_id';
   static const shoppingIngredients = 'ingredientKey';
@@ -72,41 +67,32 @@ class RecipeAppDatabase
         $recipeId INTEGER PRIMARY KEY AUTOINCREMENT,
         $recipeTitle TEXT NOT NULL,
         $recipeDesc TEXT NOT NULL,
+        $recipeIngredients TEXT NOT NULL
         $recipeSteps TEXT NOT NULL
-      )
-    ''');
-
-    await db.execute('''
-      CREATE TABLE $ingredients (
-        $ingredientsId INTEGER PRIMARY KEY AUTOINCREMENT,
-        $ingredientsName TEXT NOT NULL,
-        $ingredientsAmount TEXT NOT NULL,
-        $ingredientsRecipe INTEGER NOT NULL,
-        FOREIGN KEY($ingredientsRecipe) REFERENCES recipe($recipeId)
       )
     ''');
 
     await db.execute('''
       CREATE TABLE $shoppingList (
         $shoppingId INTEGER PRIMARY KEY AUTOINCREMENT,
-        $shoppingIngredients INTEGER NOT NULL,
-        FOREIGN KEY($shoppingIngredients) REFERENCES ingredients($ingredientsId)
+        $shoppingIngredients TEXT NOT NULL,
+        FOREIGN KEY($shoppingIngredients) REFERENCES recipe($recipeIngredients)
       )
     ''');
 
     await db.execute('''
       CREATE TABLE $planner (
         $plannerId INTEGER PRIMARY KEY AUTOINCREMENT,
-        $plannerRecipe INTEGER NOT NULL,
-        FOREIGN KEY($plannerRecipe) REFERENCES recipe($recipeId)
+        $plannerRecipe TEXT NOT NULL,
+        FOREIGN KEY($plannerRecipe) REFERENCES recipe($recipeTitle)
       )
     ''');
 
     await db.execute('''
       CREATE TABLE $favourites (
         $favId INTEGER PRIMARY KEY AUTOINCREMENT,
-        $favRecipe INTEGER NOT NULL,
-        FOREIGN KEY($favRecipe) REFERENCES recipe($recipeId)
+        $favRecipe TEXT NOT NULL,
+        FOREIGN KEY($favRecipe) REFERENCES recipe($recipeTitle)
       )
     ''');
   }

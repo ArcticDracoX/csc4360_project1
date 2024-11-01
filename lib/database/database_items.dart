@@ -4,6 +4,7 @@ class Recipe
   late int id;
   late String title;
   late String description;
+  late String ingredients;
   late String steps;
 
   Recipe(
@@ -11,6 +12,7 @@ class Recipe
     required this.id,
     required this.title,
     required this.description,
+    required this.ingredients,
     required this.steps
   });
 
@@ -19,6 +21,7 @@ class Recipe
     id = obj['_id'];
     title = obj['title'];
     description = obj['description'];
+    ingredients = obj['ingredients'];
     steps = obj['steps'];
   }
 
@@ -29,45 +32,8 @@ class Recipe
       '_id': id,
       'title': title,
       'description': description,
+      'ingredients': ingredients,
       'steps': steps,
-    };
-
-    return map;
-  }
-}
-
-// Ingredients Item
-class Ingredients
-{
-  late int id;
-  late String name;
-  late String amount;
-  late int recipe;
-
-  Ingredients(
-  {
-    required this.id,
-    required this.name,
-    required this.amount,
-    required this.recipe,
-  });
-
-   Ingredients.fromMap(dynamic obj)
-   {
-    id = obj['_id'];
-    name = obj['name'];
-    amount = obj['amount'];
-    recipe = obj['recipeKey'];
-  }
-
-  Map<String, dynamic> toMap()
-  {
-    var map = <String, dynamic>
-    {
-      '_id': id,
-      'name': name,
-      'amount': amount,
-      'recipeKey': recipe,
     };
 
     return map;
@@ -78,18 +44,18 @@ class Ingredients
 class ShoppingList
 {
   late int id;
-  late int ingredient;
+  late String ingredients;
 
   ShoppingList(
   {
     required this.id,
-    required this.ingredient,
+    required this.ingredients,
   });
 
    ShoppingList.fromMap(dynamic obj)
    {
     id = obj['_id'];
-    ingredient = obj['ingredientKey'];
+    ingredients = obj['ingredientKey'];
   }
 
   Map<String, dynamic> toMap()
@@ -97,7 +63,7 @@ class ShoppingList
     var map = <String, dynamic>
     {
       '_id': id,
-      'ingredientKey': ingredient,
+      'ingredientKey': ingredients,
     };
 
     return map;
@@ -108,7 +74,7 @@ class ShoppingList
 class Planner
 {
   late int id;
-  late int recipe;
+  late String recipe;
 
   Planner(
   {
@@ -138,7 +104,7 @@ class Planner
 class Favourites
 {
   late int id;
-  late int recipe;
+  late String recipe;
 
   Favourites(
   {

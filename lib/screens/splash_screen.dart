@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../main.dart'; 
+import 'package:recipe_meal_planner/main.dart'; 
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {

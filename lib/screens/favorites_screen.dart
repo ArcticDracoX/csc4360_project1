@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_meal_planner/database/database_items.dart';
+import 'package:recipe_meal_planner/database/database_operations.dart';
 
-class FavoritesScreen extends StatelessWidget {
-  final List<Map<String, dynamic>> favorites; // Change type here
+class FavoritesScreen extends StatelessWidget
+{
+  final DatabaseOperations dbOperations = DatabaseOperations();
+  final List<Favourites> favorites;
+  final List<Recipe> recipes;
 
-  const FavoritesScreen({Key? key, required this.favorites}) : super(key: key);
+  FavoritesScreen({Key? key, required this.favorites, required this.recipes}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

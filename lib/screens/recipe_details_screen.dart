@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_meal_planner/database/database_items.dart';
+import 'package:recipe_meal_planner/database/database_operations.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
-  final String recipeName;
-  final String recipeImage;
-  final List<String> ingredients;
-  final List<String> instructions;
-  final VoidCallback onFavoriteToggle;
+  final Recipe recipe;
+  final DatabaseOperations dbOperations = DatabaseOperations();
 
-  const RecipeDetailScreen({
+  RecipeDetailScreen({
     Key? key,
-    required this.recipeName,
-    required this.recipeImage,
-    required this.ingredients,
-    required this.instructions,
-    required this.onFavoriteToggle,
+    required this.recipe,
   }) : super(key: key);
 
   @override
@@ -42,7 +37,7 @@ class RecipeDetailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      recipeName,
+                      recipe.title,
                       style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -65,7 +60,7 @@ class RecipeDetailScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                ...ingredients.map(
+                ...ingredients.fromMap(
                   (item) => Padding(
                     padding: const EdgeInsets.only(bottom: 5),
                     child: Row(

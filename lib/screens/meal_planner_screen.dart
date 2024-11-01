@@ -5,7 +5,7 @@ class MealPlannerScreen extends StatefulWidget {
   const MealPlannerScreen({Key? key}) : super(key: key);
 
   @override
-  _MealPlannerScreenState createState() => _MealPlannerScreenState();
+  State<MealPlannerScreen> createState() => _MealPlannerScreenState();
 }
 
 class _MealPlannerScreenState extends State<MealPlannerScreen> {
