@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context)
   {
     DatabaseOperations dbOperations = DatabaseOperations();
-    final List<Recipe> recipes;
+    final List<Recipe> recipes = dbOperations.queryAllRowsF() as List<Recipe>;
 
     return Scaffold(
       body: Container(
@@ -42,7 +42,8 @@ class HomeScreen extends StatelessWidget {
               child: ListView.builder(
                 padding: const EdgeInsets.all(16.0),
                 itemCount: recipes.length,
-                itemBuilder: (context, index) {
+                itemBuilder: (context, index)
+                {
                   return _buildRecipeCard(context, recipes[index]);
                 },
               ),
@@ -53,22 +54,24 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecipeCard(BuildContext context, Map<String, dynamic> recipe) {
+  Widget _buildRecipeCard(BuildContext context, Recipe recipe)
+  {
+    DatabaseOperations dbOperations = DatabaseOperations();
+    final List<Recipe> recipes = dbOperations.queryAllRowsF() as List<Recipe>;
+
     return GestureDetector(
-      onTap: () {
+      onTap: ()
+      {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => RecipeDetailScreen(
-              recipeName: recipe['name'] as String,
-              recipeImage: recipe['image'] as String,
-              ingredients: recipe['ingredients'] as List<String>,
-              instructions: recipe['instructions'] as List<String>,
-              onFavoriteToggle: () => onFavoriteToggle(recipe),
+              recipe: recipes[],
             ),
           ),
         );
       },
+
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
@@ -76,16 +79,8 @@ class HomeScreen extends StatelessWidget {
         elevation: 8,
         margin: const EdgeInsets.symmetric(vertical: 10),
         child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(15.0),
-              child: Image.asset(
-                recipe['image'] as String,
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
-            ),
+          children:
+          [
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
@@ -95,6 +90,7 @@ class HomeScreen extends StatelessWidget {
                   end: Alignment.topCenter,
                 ),
               ),
+              
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Padding(

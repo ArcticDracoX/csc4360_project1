@@ -6,27 +6,24 @@ class RecipeDetailScreen extends StatelessWidget {
   final Recipe recipe;
   final DatabaseOperations dbOperations = DatabaseOperations();
 
-  RecipeDetailScreen({
-    Key? key,
+  RecipeDetailScreen(
+  {
+    super.key,
     required this.recipe,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              recipeImage,
-              fit: BoxFit.cover,
-            ),
-          ),
+        children:
+        [
           Positioned.fill(
             child: Container(
               color: Colors.black.withOpacity(0.3),
             ),
           ),
+
           SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -45,7 +42,8 @@ class RecipeDetailScreen extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.favorite_border, color: Colors.white, size: 30),
+                      icon: const Icon(Icons.favorite_border,
+                          color: Colors.white, size: 30),
                       onPressed: onFavoriteToggle, // Favorite toggle callback
                     ),
                   ],
@@ -67,7 +65,9 @@ class RecipeDetailScreen extends StatelessWidget {
                       children: [
                         const Icon(Icons.check, color: Colors.white, size: 20),
                         const SizedBox(width: 8),
-                        Text(item, style: const TextStyle(color: Colors.white, fontSize: 18)),
+                        Text(item,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 18)),
                       ],
                     ),
                   ),
@@ -89,7 +89,7 @@ class RecipeDetailScreen extends StatelessWidget {
                       step,
                       style: const TextStyle(color: Colors.white, fontSize: 18),
                     ),
-                  ),  
+                  ),
                 ),
               ],
             ),

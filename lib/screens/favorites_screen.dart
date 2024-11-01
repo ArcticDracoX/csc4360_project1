@@ -6,12 +6,18 @@ class FavoritesScreen extends StatelessWidget
 {
   final DatabaseOperations dbOperations = DatabaseOperations();
   final List<Favourites> favorites;
-  final List<Recipe> recipes;
+  // final List<Recipe> recipes;
 
-  FavoritesScreen({Key? key, required this.favorites, required this.recipes}) : super(key: key);
+  FavoritesScreen(
+  {
+    super.key,
+    required this.favorites,
+    // required this.recipes,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Favorites'),
@@ -25,20 +31,21 @@ class FavoritesScreen extends StatelessWidget
             end: Alignment.bottomCenter,
           ),
         ),
+
         child: favorites.isEmpty
-            ? const Center(child: Text('No favorite recipes yet!'))
-            : ListView.builder(
-                itemCount: favorites.length,
-                itemBuilder: (context, index) {
-                  final recipe = favorites[index];
-                  return Card(
-                    child: ListTile(
-                      title: Text(recipe['name'] as String),
-                      leading: Image.asset(recipe['image'] as String, width: 50, height: 50),
-                    ),
-                  );
-                },
+        ? const Center(child: Text('No favorite recipes yet!'))
+        : ListView.builder(
+          itemCount: favorites.length,
+          itemBuilder: (context, index)
+          {
+            final recipe = favorites[index];
+            return Card(
+              child: ListTile(
+                title: Text(recipe.recipeTitle),
               ),
+            );
+          },
+        ),
       ),
     );
   }

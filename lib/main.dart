@@ -29,10 +29,10 @@ class BottomNavController extends StatefulWidget {
   const BottomNavController({Key? key}) : super(key: key);
 
   @override
-  _BottomNavControllerState createState() => _BottomNavControllerState();
+  State<BottomNavController> createState() => BottomNavControllerState();
 }
 
-class _BottomNavControllerState extends State<BottomNavController> {
+class BottomNavControllerState extends State<BottomNavController> {
   int _currentIndex = 0;
 
  
@@ -66,15 +66,18 @@ class _BottomNavControllerState extends State<BottomNavController> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
+        onTap: (index)
+        {
+          setState(()
+          {
             _currentIndex = index;
           });
         },
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.teal,
         unselectedItemColor: Colors.grey,
-        items: const [
+        items: const
+        [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
           BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Meal Planner'),

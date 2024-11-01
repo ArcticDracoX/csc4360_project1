@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
+import 'package:recipe_meal_planner/screens/edit_recipe_screen.dart';
 
 class RecipeList extends StatelessWidget
 {
@@ -9,9 +10,8 @@ class RecipeList extends StatelessWidget
 
   RecipeList(
     this.recipes,
-    {Key? key}
-  ) : super(key: key);
-
+    {super.key}
+  );
 
   @override
   Widget build(BuildContext context)
@@ -29,9 +29,7 @@ class RecipeList extends StatelessWidget
               padding: const EdgeInsets.all(6.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(5)
-                ),
+                  color: Colors.blue, borderRadius: BorderRadius.circular(5)),
                 width: MediaQuery.of(context).size.width,
                 height: 50,
                 child: Center(
@@ -39,40 +37,34 @@ class RecipeList extends StatelessWidget
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>
                     [
-                      Text(
-                        ' ${recipes[index].id} ',
-                      ),
+                      Text('${recipes[index].id}'),
+
+                      Text(recipes[index].title),
                       
-                      Text(
-                        ' ${recipes[index].title}',
-                      ),
-                        
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: ()
-                          {
+                          onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => EditRecipePage(
+                                builder: (context) => EditRecipeScreen(
                                   recipe: recipes[index],
-                                )
-                              )
+                                ),
+                              ),
                             );
                           },
                           child: const Icon(Icons.edit, color: Colors.white),
                         ),
                       ),
                     ],
-                    ),
+                  ),
                 ),
               ),
             ),
-            
             onDismissed: (direction)
             {
-              DatabaseOperations.deleteR(recipes[index]);
+              dbOperations.deleteR(index);
             },
           );
         },
