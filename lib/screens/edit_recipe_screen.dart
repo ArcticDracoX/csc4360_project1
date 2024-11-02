@@ -4,12 +4,12 @@ import 'package:recipe_meal_planner/database/database_operations.dart';
 
 class EditRecipeScreen extends StatefulWidget
 {
-  final int recipeId;
+  final Recipe recipe;
 
-  const EditRecipeScreen(
+  EditRecipeScreen(
   {
     super.key, 
-    required this.recipeId
+    required this.recipe
   });
 
   @override
@@ -19,7 +19,6 @@ class EditRecipeScreen extends StatefulWidget
 class EditRecipeScreenState extends State<EditRecipeScreen>
 {
   DatabaseOperations dbOperations = DatabaseOperations();
-  Recipe recipe = dbOperations.searchR(keyword)
 
   final titleControl = TextEditingController();
   final descriptionControl = TextEditingController();

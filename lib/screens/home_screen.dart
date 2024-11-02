@@ -49,7 +49,11 @@ class HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.add),
         onPressed: ()
         {
-          Navigator.of(context)
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const AddRecipeScreen()
+            ),
+          );
         },
       ),
     );
