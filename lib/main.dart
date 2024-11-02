@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/splash_screen.dart';
 import 'screens/home_screen.dart';
-import 'screens/favorites_screen.dart';
+import 'screens/favourites_screen.dart';
 import 'screens/meal_planner_screen.dart';
 import 'screens/shopping_list_screen.dart';
 
@@ -25,34 +25,21 @@ class RecipeMealPlannerApp extends StatelessWidget {
   }
 }
 
-class BottomNavController extends StatefulWidget {
+class BottomNavController extends StatefulWidget
+{
   const BottomNavController({Key? key}) : super(key: key);
 
   @override
   State<BottomNavController> createState() => BottomNavControllerState();
 }
 
-class BottomNavControllerState extends State<BottomNavController> {
+class BottomNavControllerState extends State<BottomNavController>
+{
   int _currentIndex = 0;
 
- 
-  final List<Map<String, dynamic>> favorites = [];
-
-  
-  void _toggleFavorite(Map<String, dynamic> recipe) {
-    setState(() {
-      if (favorites.contains(recipe)) {
-        favorites.remove(recipe);
-      } else {
-        favorites.add(recipe);
-      }
-    });
-  }
-
-  
   List<Widget> _screens() => [
-    HomeScreen(onFavoriteToggle: _toggleFavorite), 
-    FavoritesScreen(favorites: favorites),        
+    HomeScreen(), 
+    FavouritesScreen(),        
     MealPlannerScreen(),
     ShoppingListScreen(),
   ];
