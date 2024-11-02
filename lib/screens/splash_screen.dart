@@ -49,10 +49,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         opacity: _animation,
         child: Container(
           color: Colors.teal,
-          child: Center(
+          child: const Center(
             child: Text(
               'Recipe & Meal Planner', // App name or logo here
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,

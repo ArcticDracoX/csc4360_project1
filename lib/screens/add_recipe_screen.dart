@@ -2,24 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
 
-class EditRecipeScreen extends StatefulWidget
+class AddRecipeScreen extends StatefulWidget
 {
-  final int recipeId;
-
-  const EditRecipeScreen(
+  const AddRecipeScreen(
   {
     super.key, 
-    required this.recipeId
   });
 
   @override
-  State<EditRecipeScreen> createState() => EditRecipeScreenState();
+  State<AddRecipeScreen> createState() => AddRecipeScreenState();
 }
 
-class EditRecipeScreenState extends State<EditRecipeScreen>
+class AddRecipeScreenState extends State<AddRecipeScreen>
 {
   DatabaseOperations dbOperations = DatabaseOperations();
-  Recipe recipe = dbOperations.searchR(keyword)
+  late Recipe recipe;
 
   final titleControl = TextEditingController();
   final descriptionControl = TextEditingController();
@@ -29,11 +26,6 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
   @override
   Widget build(BuildContext context)
   {
-    titleControl.text = widget.recipe.title;
-    descriptionControl.text = widget.recipe.description;
-    ingredientsControl.text = widget.recipe.ingredients;
-    stepsControl.text = widget.recipe.steps;
-    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Recipe'),
@@ -102,15 +94,19 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.edit),
-        onPressed: ()
+        child: const Icon(Icons.add),
+        onPressed: () async
         {
-          widget.recipe.title = titleControl.text;
-          widget.recipe.description = descriptionControl.text;
-          widget.recipe.ingredients = ingredientsControl.text;
-          widget.recipe.steps = stepsControl.text;
+          int id = (await dbOperations.queryRowCountR()) + 1;
+          final recipe = Recipe(
+            id: id,
+            title: titleControl.text,
+            description: descriptionControl.text,
+            ingredients: descriptionControl.text,
+            steps: stepsControl.text
+          );
 
-          dbOperations.updateR(widget.recipe);
+          dbOperations.insertR(recipe);
         },
       ),
     );

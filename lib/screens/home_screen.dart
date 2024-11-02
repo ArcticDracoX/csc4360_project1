@@ -1,113 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
+import 'package:recipe_meal_planner/screens/add_recipe_screen.dart';
 import 'package:recipe_meal_planner/screens/recipe_details_screen.dart';
+import 'package:recipe_meal_planner/widgets/recipe_list.dart';
 
-class HomeScreen extends StatelessWidget {
-  final void Function(Map<String, dynamic>) onFavoriteToggle;
-
-  const HomeScreen({Key? key, required this.onFavoriteToggle}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context)
-  {
-    DatabaseOperations dbOperations = DatabaseOperations();
-    final List<Recipe> recipes = dbOperations.queryAllRowsF() as List<Recipe>;
+  State<HomeScreen> createState() => HomeScreenState();
+}
 
+class HomeScreenState extends State<HomeScreen> {
+  DatabaseOperations dbOperations = DatabaseOperations();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFE1F5C4), Color(0xFF1E8F91)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16.0, 60.0, 16.0, 20.0),
-              child: Text(
-                'Recipes',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: 'Serif', // Optional custom font
-                ),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(16.0),
-                itemCount: recipes.length,
-                itemBuilder: (context, index)
+      appBar: AppBar(
+        title: const Text('Recipe List'),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              FutureBuilder(
+                future: dbOperations.queryAllRowsR(),
+                builder: (context, snapshot)
                 {
-                  return _buildRecipeCard(context, recipes[index]);
+                  if(snapshot.hasError)
+                  {
+                    return const Center(
+                      child: Text('Error'),
+                    );
+                  }
+                  var data = snapshot.data;
+                  return snapshot.hasData ? RecipeList(data!) : const Center(child: Text('You have no recipes.'),
+                  );
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    );
-  }
-
-  Widget _buildRecipeCard(BuildContext context, Recipe recipe)
-  {
-    DatabaseOperations dbOperations = DatabaseOperations();
-    final List<Recipe> recipes = dbOperations.queryAllRowsF() as List<Recipe>;
-
-    return GestureDetector(
-      onTap: ()
-      {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RecipeDetailScreen(
-              recipe: recipes[],
-            ),
-          ),
-        );
-      },
-
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        elevation: 8,
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        child: Stack(
-          children:
-          [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                gradient: LinearGradient(
-                  colors: [Colors.black.withOpacity(0.5), Colors.transparent],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
-              
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    recipe['name'] as String,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: ()
+        {
+          Navigator.of(context)
+        },
       ),
     );
   }

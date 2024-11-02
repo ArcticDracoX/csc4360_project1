@@ -66,7 +66,7 @@ class RecipeAppDatabase
         $recipeId INTEGER PRIMARY KEY AUTOINCREMENT,
         $recipeTitle TEXT NOT NULL,
         $recipeDesc TEXT NOT NULL,
-        $recipeIngredients TEXT NOT NULL
+        $recipeIngredients TEXT NOT NULL,
         $recipeSteps TEXT NOT NULL
       )
     ''');

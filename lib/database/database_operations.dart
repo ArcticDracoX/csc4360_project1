@@ -59,50 +59,6 @@ class DatabaseOperations
     return rows.map((recipe) => Recipe.fromMap(RecipeAppDatabase.recipe)).toList();
   }
 
-
-  // Ingredients Functions
-  Future<int> insertI(Ingredients row) async
-  {
-    final db = await dbProvider.database;
-    return await db!.insert(RecipeAppDatabase.ingredients, row.toMap());
-  }
-
-  Future<List<Ingredients>> queryAllRowsI() async
-  {
-    final db = await dbProvider.database;
-    var rows = await db!.query(RecipeAppDatabase.ingredients);
-    return rows.map((ingredients) => Ingredients.fromMap(RecipeAppDatabase.ingredients)).toList();
-  }
-
-  Future<int> queryRowCountI() async
-  {
-    final db = await dbProvider.database;
-    final results = await db!.rawQuery('SELECT COUNT(*) FROM ${RecipeAppDatabase.ingredients}');
-    return Sqflite.firstIntValue(results) ?? 0;
-  }
-
-  Future<int> updateI(Ingredients row) async
-  {
-    final db = await dbProvider.database;
-    return await db!.update(
-      RecipeAppDatabase.ingredients,
-      row.toMap(),
-      where: '${RecipeAppDatabase.ingredientsId} = ?',
-      whereArgs: [row.id],
-    );
-  }
-
-  Future<int> deleteI(int id) async
-  {
-    final db = await dbProvider.database;
-    return await db!.delete(
-      RecipeAppDatabase.ingredients,
-      where: '${RecipeAppDatabase.ingredientsId} = ?',
-      whereArgs: [id],
-    );
-  }
-
-
   // Shopping List Functions
   Future<int> insertS(ShoppingList row) async
   {

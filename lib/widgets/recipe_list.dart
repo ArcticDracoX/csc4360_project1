@@ -49,7 +49,7 @@ class RecipeList extends StatelessWidget
                               context,
                               MaterialPageRoute(
                                 builder: (context) => EditRecipeScreen(
-                                  recipe: recipes[index],
+                                  recipeId: index,
                                 ),
                               ),
                             );

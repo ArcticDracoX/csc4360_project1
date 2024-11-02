@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
 
-class FavoritesScreen extends StatelessWidget
+class FavouritesScreen extends StatefulWidget
 {
-  final DatabaseOperations dbOperations = DatabaseOperations();
-  final List<Favourites> favorites;
-  // final List<Recipe> recipes;
-
-  FavoritesScreen(
+  const FavouritesScreen(
   {
     super.key,
-    required this.favorites,
-    // required this.recipes,
   });
 
+  @override
+  State<FavouritesScreen> createState() => FavouritesScreenState();
+}
+
+class FavouritesScreenState extends State<FavouritesScreen>
+{ 
   @override
   Widget build(BuildContext context)
   {
