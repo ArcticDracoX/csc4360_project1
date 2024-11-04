@@ -99,18 +99,6 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
                   ),
                 ),
               ),
-
-              Row(
-                children:
-                [
-                  ElevatedButton(
-                    onPressed: ()
-                    {
-                      if(dbOperations.searchF(keyword))
-                    },
-                    child: const Icon(Icons.star, color: Colors.yellow,))
-                ],
-              )
             ],
           ),
         ),
@@ -129,7 +117,7 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
 
           if(context.mounted)
           {
-            Navigator.pop(context);
+            Navigator.of(context).pop();
           }
         },
       ),

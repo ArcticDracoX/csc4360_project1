@@ -25,6 +25,66 @@ class RecipeList extends StatelessWidget
         {
           return Dismissible(
             key: Key('${recipes[index].id}'),
+             background:
+            Container(
+              color: Colors.green,
+              child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 20,
+                    ),
+
+                    Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+
+                    Text(
+                      " Edit",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            secondaryBackground: Container(
+              color: Colors.red,
+              child: const Align(
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>
+                  [
+                    Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                    
+                    Text(
+                      " Delete",
+                      // style: TextStyle(
+                      //   color: Colors.white,
+                      //   fontWeight: FontWeight.w700,
+                      // ),
+                      textAlign: TextAlign.right,
+                    ),
+
+                    SizedBox(
+                      width: 20,
+                    ),
+                  ],
+                ),
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(6.0),
               child: Container(
@@ -37,9 +97,19 @@ class RecipeList extends StatelessWidget
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>
                     [
-                      Text('${recipes[index].id}'),
+                      Text('  ${recipes[index].id}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                      ),
 
-                      Text(recipes[index].title),
+                      Text(recipes[index].title,
+                        style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                      ),
                       
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -71,9 +141,28 @@ class RecipeList extends StatelessWidget
                 ),
               ),
             ),
+            confirmDismiss: (direction) async
+            {
+              if(direction == DismissDirection.startToEnd)
+              {
+                Navigator.push(
+                  context,
+                    MaterialPageRoute(
+                      builder: (context) => EditRecipeScreen(
+                      recipe: recipes[index],
+                    ),
+                  ),
+                );
+                return false;
+              }
+              return true;
+            },
             onDismissed: (direction)
             {
-              dbOperations.deleteR(recipes[index].id);
+              if(direction == DismissDirection.endToStart)
+              {
+                dbOperations.deleteR(recipes[index].id);
+              }
             },
           );
         },

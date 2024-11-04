@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
+import 'package:recipe_meal_planner/screens/view_recipe_screen.dart';
 
 class ShoppingListWidget extends StatelessWidget
 {
@@ -38,16 +39,30 @@ class ShoppingListWidget extends StatelessWidget
                     [
                       Text('${shoppingList[index].id}'),
 
-                      Text(shoppingList[index].ingredients),
+                      Text(shoppingList[index].ingredientsName),
                       
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange
+                          ),
                           onPressed: () async
                           {
-                            await dbOperations.deleteS(shoppingList[index].id);
+                            List<Recipe> recipes = await dbOperations.queryAllRowsR();
+                            if(context.mounted)
+                            {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewRecipeScreen(
+                                    recipe: recipes[shoppingList[index].ingredientsKey],
+                                  ),
+                                ),
+                              );
+                            }
                           },
-                          child: const Icon(Icons.remove, color: Colors.white),
+                          child: const Icon(Icons.remove_red_eye, color: Colors.white),
                         ),
                       ),
                     ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
+import 'package:recipe_meal_planner/screens/view_recipe_screen.dart';
 
 class FavouritesList extends StatelessWidget
 {
@@ -42,12 +43,26 @@ class FavouritesList extends StatelessWidget
                       
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                       child: ElevatedButton(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange
+                          ),
                           onPressed: () async
                           {
-                            await dbOperations.deleteF(favourites[index].id);
+                            List<Recipe> recipes = await dbOperations.queryAllRowsR();
+                            if(context.mounted)
+                            {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewRecipeScreen(
+                                    recipe: recipes[favourites[index].recipeKey],
+                                  ),
+                                ),
+                              );
+                            }
                           },
-                          child: const Icon(Icons.remove, color: Colors.white),
+                          child: const Icon(Icons.remove_red_eye, color: Colors.white),
                         ),
                       ),
                     ],

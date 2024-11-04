@@ -18,10 +18,6 @@ class DatabaseOperations
     final db = await dbProvider.database;
     var rows = await db!.query(RecipeAppDatabase.recipe);
     return rows.map((recipe) => Recipe.fromMap(recipe)).toList();
-    // List<Map<String, dynamic>> allRows = await db!.query(RecipeAppDatabase.recipe);
-    // List<Recipe> recipes =
-    // allRows.map((recipes) => Recipe.fromMap(recipes)).toList();
-    // return recipes;
   }
 
   Future<int> queryRowCountR() async

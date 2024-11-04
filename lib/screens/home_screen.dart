@@ -80,7 +80,10 @@ class HomeScreenState extends State<HomeScreen>
             MaterialPageRoute(
               builder: (context) => const AddRecipeScreen()
             ),
-          );
+          ).then((_)
+          {
+            setState((){});
+          });
         },
       ),
     );

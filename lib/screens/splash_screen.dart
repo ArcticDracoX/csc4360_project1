@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       body: FadeTransition(
         opacity: _animation,
         child: Container(
-          color: Colors.teal,
+          color: Colors.blue,
           child: const Center(
             child: Text(
               'Recipe & Meal Planner', // App name or logo here
