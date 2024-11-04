@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
+import 'package:recipe_meal_planner/widgets/favourites_list.dart';
 
 class FavouritesScreen extends StatefulWidget
 {
@@ -13,38 +13,37 @@ class FavouritesScreen extends StatefulWidget
   State<FavouritesScreen> createState() => FavouritesScreenState();
 }
 
-class FavouritesScreenState extends State<FavouritesScreen>
-{ 
+class FavouritesScreenState extends State<FavouritesScreen> {
+  DatabaseOperations dbOperations = DatabaseOperations();
+
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorites'),
-        backgroundColor: Colors.teal,
+        title: const Text('Recipe List'),
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFFFD1DC), Color(0xFFE64C4C)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-
-        child: favorites.isEmpty
-        ? const Center(child: Text('No favorite recipes yet!'))
-        : ListView.builder(
-          itemCount: favorites.length,
-          itemBuilder: (context, index)
-          {
-            final recipe = favorites[index];
-            return Card(
-              child: ListTile(
-                title: Text(recipe.recipeTitle),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              FutureBuilder(
+                future: dbOperations.queryAllRowsF(),
+                builder: (context, snapshot)
+                {
+                  if(snapshot.hasError)
+                  {
+                    return const Center(
+                      child: Text('Error'),
+                    );
+                  }
+                  var data = snapshot.data;
+                  return snapshot.hasData ? FavouritesList(data!) : const Center(child: Text('You have no favourited recipes.'),
+                  );
+                },
               ),
-            );
-          },
+            ],
+          ),
         ),
       ),
     );

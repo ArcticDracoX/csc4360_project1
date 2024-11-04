@@ -1,101 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_meal_planner/database/database_operations.dart';
+import 'package:recipe_meal_planner/screens/add_recipe_screen.dart';
+import 'package:recipe_meal_planner/widgets/shopping_list.dart';
 
 class ShoppingListScreen extends StatefulWidget {
-  const ShoppingListScreen({Key? key}) : super(key: key);
+  const ShoppingListScreen({super.key});
 
   @override
-  _ShoppingListScreenState createState() => _ShoppingListScreenState();
+  State<ShoppingListScreen> createState() => ShoppingListScreenState();
 }
 
-class _ShoppingListScreenState extends State<ShoppingListScreen> {
-  final List<Map<String, dynamic>> _shoppingList = [];
-  final TextEditingController _controller = TextEditingController();
-
-  void _addItem(String item) {
-    setState(() {
-      _shoppingList.add({'name': item, 'purchased': false});
-    });
-    _controller.clear();
-  }
-
-  void _clearPurchasedItems() {
-    setState(() {
-      _shoppingList.removeWhere((item) => item['purchased']);
-    });
-  }
+class ShoppingListScreenState extends State<ShoppingListScreen> {
+  DatabaseOperations dbOperations = DatabaseOperations();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shopping List', textAlign: TextAlign.center),
-        backgroundColor: Colors.teal,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.clear_all),
-            onPressed: _clearPurchasedItems,
-            tooltip: 'Clear purchased items',
-          ),
-        ],
+        title: const Text('Recipe List'),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.teal.shade100, Colors.teal.shade300],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                controller: _controller,
-                decoration: const InputDecoration(
-                  labelText: 'Add item to shopping list',
-                  border: OutlineInputBorder(),
-                  suffixIcon: Icon(Icons.add),
-                ),
-                onSubmitted: _addItem,
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _shoppingList.length,
-                itemBuilder: (context, index) {
-                  final item = _shoppingList[index];
-                  return Dismissible(
-                    key: Key(item['name']),
-                    background: Container(color: Colors.redAccent, child: const Icon(Icons.delete, color: Colors.white)),
-                    onDismissed: (direction) {
-                      setState(() {
-                        _shoppingList.removeAt(index);
-                      });
-                    },
-                    child: CheckboxListTile(
-                      title: Text(item['name']),
-                      value: item['purchased'],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          item['purchased'] = value!;
-                        });
-                      },
-                      secondary: IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          setState(() {
-                            _shoppingList.removeAt(index);
-                          });
-                        },
-                      ),
-                    ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              FutureBuilder(
+                future: dbOperations.queryAllRowsS(),
+                builder: (context, snapshot)
+                {
+                  if(snapshot.hasError)
+                  {
+                    return const Center(
+                      child: Text('Error'),
+                    );
+                  }
+                  var data = snapshot.data;
+                  return snapshot.hasData ? ShoppingList(data!) : const Center(child: Text('You have no recipes.'),
                   );
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: ()
+        {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const AddRecipeScreen()
+            ),
+          );
+        },
       ),
     );
   }

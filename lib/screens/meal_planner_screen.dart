@@ -1,71 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:recipe_meal_planner/database/database_operations.dart';
+import 'package:recipe_meal_planner/screens/add_recipe_screen.dart';
+import 'package:recipe_meal_planner/widgets/planner_list.dart';
 
 class MealPlannerScreen extends StatefulWidget {
-  const MealPlannerScreen({Key? key}) : super(key: key);
+  const MealPlannerScreen({super.key});
 
   @override
-  State<MealPlannerScreen> createState() => _MealPlannerScreenState();
+  State<MealPlannerScreen> createState() => MealPlannerScreenState();
 }
 
-class _MealPlannerScreenState extends State<MealPlannerScreen> {
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime _selectedDay = DateTime.now();
+class MealPlannerScreenState extends State<MealPlannerScreen> {
+  DatabaseOperations dbOperations = DatabaseOperations();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFA8E6CF), Color(0xFFDCEDC2)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      appBar: AppBar(
+        title: const Text('Recipe List'),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              FutureBuilder(
+                future: dbOperations.queryAllRowsP(),
+                builder: (context, snapshot)
+                {
+                  if(snapshot.hasError)
+                  {
+                    return const Center(
+                      child: Text('Error'),
+                    );
+                  }
+                  var data = snapshot.data;
+                  return snapshot.hasData ? PlannerList(data!) : const Center(child: Text('You have no recipes.'),
+                  );
+                },
+              ),
+            ],
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16.0, 60.0, 16.0, 20.0),
-              child: Text(
-                'Meal Planner',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: 'Serif', // Optional custom font
-                ),
-              ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: ()
+        {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const AddRecipeScreen()
             ),
-            Expanded(
-              child: TableCalendar(
-                firstDay: DateTime.utc(2020, 1, 1),
-                lastDay: DateTime.utc(2030, 12, 31),
-                focusedDay: _selectedDay,
-                calendarFormat: _calendarFormat,
-                selectedDayPredicate: (day) {
-                  return isSameDay(_selectedDay, day);
-                },
-                onDaySelected: (selectedDay, focusedDay) {
-                  setState(() {
-                    _selectedDay = selectedDay;
-                  });
-                },
-                onFormatChanged: (format) {
-                  if (_calendarFormat != format) {
-                    setState(() {
-                      _calendarFormat = format;
-                    });
-                  }
-                },
-                onPageChanged: (focusedDay) {
-                  _selectedDay = focusedDay;
-                },
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

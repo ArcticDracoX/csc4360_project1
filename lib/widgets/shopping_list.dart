@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
-import 'package:recipe_meal_planner/screens/edit_recipe_screen.dart';
 
-class RecipeList extends StatelessWidget
+class ShoppingListWidget extends StatelessWidget
 {
-  final List<Recipe> recipes;
+  final List<ShoppingList> shoppingList;
   final DatabaseOperations dbOperations = DatabaseOperations();
 
-  RecipeList(
-    this.recipes,
+  ShoppingListWidget(
+    this.shoppingList,
     {super.key}
   );
 
@@ -20,11 +19,11 @@ class RecipeList extends StatelessWidget
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: recipes.length,
+        itemCount: shoppingList.length,
         itemBuilder: (BuildContext context, int index)
         {
           return Dismissible(
-            key: Key('${recipes[index].id}'),
+            key: Key('${shoppingList[index].id}'),
             child: Padding(
               padding: const EdgeInsets.all(6.0),
               child: Container(
@@ -37,25 +36,18 @@ class RecipeList extends StatelessWidget
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>
                     [
-                      Text('${recipes[index].id}'),
+                      Text('${shoppingList[index].id}'),
 
-                      Text(recipes[index].title),
+                      Text(shoppingList[index].ingredients),
                       
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: ()
+                          onPressed: () async
                           {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditRecipeScreen(
-                                  recipe: recipes[index],
-                                ),
-                              ),
-                            );
+                            await dbOperations.deleteS(shoppingList[index].id);
                           },
-                          child: const Icon(Icons.edit, color: Colors.white),
+                          child: const Icon(Icons.remove, color: Colors.white),
                         ),
                       ),
                     ],
@@ -65,7 +57,7 @@ class RecipeList extends StatelessWidget
             ),
             onDismissed: (direction)
             {
-              dbOperations.deleteR(index);
+              dbOperations.deleteS(index);
             },
           );
         },

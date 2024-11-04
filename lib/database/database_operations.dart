@@ -173,11 +173,11 @@ class DatabaseOperations
     return await db!.insert(RecipeAppDatabase.favourites, row.toMap());
   }
 
-  Future<List<Recipe>> queryAllRowsF() async
+  Future<List<Favourites>> queryAllRowsF() async
   {
     final db = await dbProvider.database;
     var rows = await db!.query(RecipeAppDatabase.favourites);
-    return rows.map((favourites) => Recipe.fromMap(RecipeAppDatabase.favourites)).toList();
+    return rows.map((favourites) => Favourites.fromMap(RecipeAppDatabase.favourites)).toList();
   }
 
   Future<int> queryRowCountF() async
