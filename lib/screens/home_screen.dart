@@ -35,9 +35,10 @@ class HomeScreenState extends State<HomeScreen>
                     if(snapshot.hasError)
                     {
                       return const Center(
-                        child: Text('Error'),
+                        child: Text('Error in snapshot'),
                       );
                     }
+
                     var data = snapshot.data;
                     if(snapshot.hasData)
                     {
@@ -45,10 +46,8 @@ class HomeScreenState extends State<HomeScreen>
                       {
                         return const Center(child: Text('You have no recipes.'));
                       }
-                      else
-                      {
-                        return RecipeList(data!);
-                      }
+
+                      return RecipeList(data!);
                     }
                   }
                   return const Center(child: CircularProgressIndicator());

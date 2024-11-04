@@ -31,15 +31,27 @@ class FavouritesScreenState extends State<FavouritesScreen> {
                 future: dbOperations.queryAllRowsF(),
                 builder: (context, snapshot)
                 {
-                  if(snapshot.hasError)
+                  if(snapshot.connectionState == ConnectionState.done)
                   {
-                    return const Center(
-                      child: Text('Error'),
-                    );
+                    if(snapshot.hasError)
+                    {
+                      return const Center(
+                        child: Text('Error in snapshot'),
+                      );
+                    }
+
+                    var data = snapshot.data;
+                    if(snapshot.hasData)
+                    {
+                      if(snapshot.data!.isEmpty)
+                      {
+                        return const Center(child: Text('You have no favourited recipes.'));
+                      }
+
+                      return FavouritesList(data!);
+                    }
                   }
-                  var data = snapshot.data;
-                  return snapshot.hasData ? FavouritesList(data!) : const Center(child: Text('You have no favourited recipes.'),
-                  );
+                  return const Center(child: CircularProgressIndicator());
                 },
               ),
             ],
