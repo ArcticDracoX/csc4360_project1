@@ -3,14 +3,16 @@ import 'package:recipe_meal_planner/database/database_operations.dart';
 import 'package:recipe_meal_planner/screens/add_recipe_screen.dart';
 import 'package:recipe_meal_planner/widgets/recipe_list.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget
+{
   const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => HomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen>
+{
   DatabaseOperations dbOperations = DatabaseOperations();
 
   @override
@@ -28,22 +30,37 @@ class HomeScreenState extends State<HomeScreen> {
                 future: dbOperations.queryAllRowsR(),
                 builder: (context, snapshot)
                 {
-                  // if(snapshot.hasError)
-                  // {
-                  //   return const Center(
-                  //     child: Text('Error'),
-                  //   );
-                  // }
-                  var data = snapshot.data;
-                  return snapshot.hasData ? RecipeList(data!) : const Center(child: Text('You have no recipes.'),
-                  );
+                  if(snapshot.connectionState == ConnectionState.done)
+                  {
+                    if(snapshot.hasError)
+                    {
+                      return const Center(
+                        child: Text('Error'),
+                      );
+                    }
+                    var data = snapshot.data;
+                    if(snapshot.hasData)
+                    {
+                      if(snapshot.data!.isEmpty)
+                      {
+                        return const Center(child: Text('You have no recipes.'));
+                      }
+                      else
+                      {
+                        return RecipeList(data!);
+                      }
+                    }
+                  }
+                  return const Center(child: CircularProgressIndicator());
                 },
               ),
             ],
           ),
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue.shade300,
         child: const Icon(Icons.add),
         onPressed: ()
         {

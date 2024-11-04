@@ -17,7 +17,11 @@ class DatabaseOperations
   {
     final db = await dbProvider.database;
     var rows = await db!.query(RecipeAppDatabase.recipe);
-    return rows.map((recipe) => Recipe.fromMap(RecipeAppDatabase.recipe)).toList();
+    return rows.map((recipe) => Recipe.fromMap(recipe)).toList();
+    // List<Map<String, dynamic>> allRows = await db!.query(RecipeAppDatabase.recipe);
+    // List<Recipe> recipes =
+    // allRows.map((recipes) => Recipe.fromMap(recipes)).toList();
+    // return recipes;
   }
 
   Future<int> queryRowCountR() async
@@ -56,7 +60,7 @@ class DatabaseOperations
       where: 'name LIKE ?',
       whereArgs: ['%$keyword%']
     );
-    return rows.map((recipe) => Recipe.fromMap(RecipeAppDatabase.recipe)).toList();
+    return rows.map((recipe) => Recipe.fromMap(recipe)).toList();
   }
 
   // Shopping List Functions
@@ -70,7 +74,7 @@ class DatabaseOperations
   {
     final db = await dbProvider.database;
     var rows = await db!.query(RecipeAppDatabase.shoppingList);
-    return rows.map((shoppingList) => ShoppingList.fromMap(RecipeAppDatabase.shoppingList)).toList();
+    return rows.map((shoppingList) => ShoppingList.fromMap(shoppingList)).toList();
   }
 
   Future<int> queryRowCountS() async
@@ -109,7 +113,7 @@ class DatabaseOperations
       where: 'name LIKE ?',
       whereArgs: ['%$keyword%']
     );
-    return rows.map((shoppingList) => ShoppingList.fromMap(RecipeAppDatabase.shoppingList)).toList();
+    return rows.map((shoppingList) => ShoppingList.fromMap(shoppingList)).toList();
   }
 
 
@@ -124,7 +128,7 @@ class DatabaseOperations
   {
     final db = await dbProvider.database;
     var rows = await db!.query(RecipeAppDatabase.planner);
-    return rows.map((planner) => Planner.fromMap(RecipeAppDatabase.planner)).toList();
+    return rows.map((planner) => Planner.fromMap(planner)).toList();
   }
 
   Future<int> queryRowCountP() async
@@ -153,7 +157,7 @@ class DatabaseOperations
       where: 'name LIKE ?',
       whereArgs: ['%$keyword%']
     );
-    return rows.map((planner) => Planner.fromMap(RecipeAppDatabase.planner)).toList();
+    return rows.map((planner) => Planner.fromMap(planner)).toList();
   }
 
   Future<int> deleteP(int id) async
@@ -177,7 +181,7 @@ class DatabaseOperations
   {
     final db = await dbProvider.database;
     var rows = await db!.query(RecipeAppDatabase.favourites);
-    return rows.map((favourites) => Favourites.fromMap(RecipeAppDatabase.favourites)).toList();
+    return rows.map((favourites) => Favourites.fromMap(favourites)).toList();
   }
 
   Future<int> queryRowCountF() async
@@ -216,6 +220,6 @@ class DatabaseOperations
       where: 'name LIKE ?',
       whereArgs: ['%$keyword%']
     );
-    return rows.map((favourites) => Favourites.fromMap(RecipeAppDatabase.favourites)).toList();
+    return rows.map((favourites) => Favourites.fromMap(favourites)).toList();
   }
 }

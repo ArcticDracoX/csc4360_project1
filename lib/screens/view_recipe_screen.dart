@@ -53,6 +53,7 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>
             [
+              // Make all these display the respective text in neat boxes that indicate which is which
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
@@ -99,18 +100,6 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.edit),
-        onPressed: ()
-        {
-          widget.recipe.title = titleControl.text;
-          widget.recipe.description = descriptionControl.text;
-          widget.recipe.ingredients = ingredientsControl.text;
-          widget.recipe.steps = stepsControl.text;
-
-          dbOperations.updateR(widget.recipe);
-        },
       ),
     );
   }

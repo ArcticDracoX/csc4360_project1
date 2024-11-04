@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
-import 'package:recipe_meal_planner/screens/home_screen.dart';
+
 
 class AddRecipeScreen extends StatefulWidget
 {
@@ -108,6 +108,11 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
           );
 
           dbOperations.insertR(recipe);
+
+          if(context.mounted)
+          {
+            Navigator.of(context).pop();
+          }
         },
       ),
     );

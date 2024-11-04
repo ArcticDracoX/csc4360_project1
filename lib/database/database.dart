@@ -4,11 +4,11 @@ import 'package:path_provider/path_provider.dart';
 
 class RecipeAppDatabase
 {
-  static const _databaseName = "RecipeAppDatabase.db";
-  static const _databaseVersion = 1;
-  
   RecipeAppDatabase._privateConstructor();
   static final RecipeAppDatabase instance = RecipeAppDatabase._privateConstructor();
+  
+  static const _databaseName = "RecipeAppDatabase.db";
+  static const _databaseVersion = 1;
 
   // Recipes
   static const recipe = 'recipes';
@@ -75,7 +75,7 @@ class RecipeAppDatabase
       CREATE TABLE $shoppingList (
         $shoppingId INTEGER PRIMARY KEY AUTOINCREMENT,
         $shoppingIngredients TEXT NOT NULL,
-        FOREIGN KEY($shoppingIngredients) REFERENCES recipe($recipeIngredients)
+        FOREIGN KEY($shoppingIngredients) REFERENCES $recipe($recipeIngredients)
       )
     ''');
 
@@ -83,7 +83,7 @@ class RecipeAppDatabase
       CREATE TABLE $planner (
         $plannerId INTEGER PRIMARY KEY AUTOINCREMENT,
         $plannerRecipe TEXT NOT NULL,
-        FOREIGN KEY($plannerRecipe) REFERENCES recipe($recipeTitle)
+        FOREIGN KEY($plannerRecipe) REFERENCES $recipe($recipeTitle)
       )
     ''');
 
@@ -91,7 +91,7 @@ class RecipeAppDatabase
       CREATE TABLE $favourites (
         $favId INTEGER PRIMARY KEY AUTOINCREMENT,
         $favRecipe TEXT NOT NULL,
-        FOREIGN KEY($favRecipe) REFERENCES recipe($recipeTitle)
+        FOREIGN KEY($favRecipe) REFERENCES $recipe($recipeTitle)
       )
     ''');
   }

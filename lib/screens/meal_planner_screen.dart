@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
-import 'package:recipe_meal_planner/screens/add_recipe_screen.dart';
 import 'package:recipe_meal_planner/widgets/planner_list.dart';
 
 class MealPlannerScreen extends StatefulWidget {
@@ -42,17 +41,6 @@ class MealPlannerScreenState extends State<MealPlannerScreen> {
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: ()
-        {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const AddRecipeScreen()
-            ),
-          );
-        },
       ),
     );
   }

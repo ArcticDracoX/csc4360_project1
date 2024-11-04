@@ -43,19 +43,38 @@ class RecipeList extends StatelessWidget
                       
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          onPressed: ()
-                          {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditRecipeScreen(
-                                  recipe: recipes[index],
-                                ),
+                        child: Row(
+                          children: <Widget>
+                          [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orange
                               ),
-                            );
-                          },
-                          child: const Icon(Icons.edit, color: Colors.white),
+                              onPressed: ()
+                              {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EditRecipeScreen(
+                                      recipe: recipes[index],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: const Icon(Icons.edit, color: Colors.white),
+                            ),
+
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red
+                              ),
+                              onPressed: ()
+                              {
+                                dbOperations.deleteR(recipes[index].id);
+                              },
+                              child: const Icon(Icons.remove, color: Colors.white),
+                            ),
+                          ],
                         ),
                       ),
                     ],
