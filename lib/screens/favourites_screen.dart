@@ -26,7 +26,20 @@ class FavouritesScreenState extends State<FavouritesScreen> {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
+            children: <Widget>
+            [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue
+                ),
+                onPressed: ()
+                {
+                  // Simple refresh button
+                  setState((){});
+                },
+                child: const Icon(Icons.refresh, color: Colors.white)
+              ),
+              
               FutureBuilder(
                 future: dbOperations.queryAllRowsF(),
                 builder: (context, snapshot)

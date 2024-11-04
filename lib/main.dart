@@ -17,7 +17,7 @@ class RecipeMealPlannerApp extends StatelessWidget {
     return MaterialApp(
       title: 'Recipe and Meal Planner',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.blue,
         fontFamily: 'Arial',
       ),
       home: const SplashScreen(), 

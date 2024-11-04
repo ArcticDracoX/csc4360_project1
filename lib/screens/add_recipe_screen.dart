@@ -33,7 +33,7 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
         leading: GestureDetector(
           onTap: ()
           {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
           },
           child: const Icon(
             Icons.arrow_back,
@@ -61,6 +61,7 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
+                  maxLines: null,
                   controller: descriptionControl,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -72,6 +73,7 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
+                  maxLines: null,
                   controller: ingredientsControl,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -83,6 +85,7 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
+                  maxLines: null,
                   controller: stepsControl,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -95,7 +98,8 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.blue.shade300,
+        child: const Icon(Icons.check),
         onPressed: () async
         {
           int id = (await dbOperations.queryRowCountR()) + 1;
@@ -111,7 +115,7 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
 
           if(context.mounted)
           {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
           }
         },
       ),

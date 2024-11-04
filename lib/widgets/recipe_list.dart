@@ -63,17 +63,6 @@ class RecipeList extends StatelessWidget
                               },
                               child: const Icon(Icons.edit, color: Colors.white),
                             ),
-
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red
-                              ),
-                              onPressed: ()
-                              {
-                                dbOperations.deleteR(recipes[index].id);
-                              },
-                              child: const Icon(Icons.remove, color: Colors.white),
-                            ),
                           ],
                         ),
                       ),

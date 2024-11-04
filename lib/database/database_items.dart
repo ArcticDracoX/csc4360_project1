@@ -44,18 +44,21 @@ class Recipe
 class ShoppingList
 {
   late int id;
-  late String ingredients;
+  late String ingredientsName;
+  late int ingredientsKey;
 
   ShoppingList(
   {
     required this.id,
-    required this.ingredients,
+    required this.ingredientsName,
+    required this.ingredientsKey,
   });
 
    ShoppingList.fromMap(dynamic obj)
    {
     id = obj['_id'];
-    ingredients = obj['ingredientKey'];
+    ingredientsName = obj['ingredientsName'];
+    ingredientsKey = obj['ingredientsKey'];
   }
 
   Map<String, dynamic> toMap()
@@ -63,7 +66,8 @@ class ShoppingList
     var map = <String, dynamic>
     {
       '_id': id,
-      'ingredientKey': ingredients,
+      'ingredientsName': ingredientsName,
+      'ingredientsKey': ingredientsKey,
     };
 
     return map;
@@ -75,6 +79,7 @@ class Planner
 {
   late int id;
   late String recipeTitle;
+  late int recipeKey;
 
   Planner(
   {
@@ -85,7 +90,8 @@ class Planner
    Planner.fromMap(dynamic obj)
    {
     id = obj['_id'];
-    recipeTitle = obj['recipeKey'];
+    recipeTitle = obj['recipeTitle'];
+    recipeKey = obj['recipeKey'];
   }
 
   Map<String, dynamic> toMap()
@@ -93,7 +99,8 @@ class Planner
     var map = <String, dynamic>
     {
       '_id': id,
-      'recipeKey': recipeTitle,
+      'plannerRecipeTitle': recipeTitle,
+      'plannerRecipeKey': recipeKey,
     };
 
     return map;
@@ -105,17 +112,20 @@ class Favourites
 {
   late int id;
   late String recipeTitle;
+  late int recipeKey;
 
   Favourites(
   {
     required this.id,
     required this.recipeTitle,
+    required this.recipeKey,
   });
 
    Favourites.fromMap(dynamic obj)
    {
     id = obj['_id'];
-    recipeTitle = obj['recipeKey'];
+    recipeTitle = obj['recipeTitle'];
+    recipeKey = obj['recipeKey'];
   }
 
   Map<String, dynamic> toMap()
@@ -123,7 +133,8 @@ class Favourites
     var map = <String, dynamic>
     {
       '_id': id,
-      'recipeKey': recipeTitle,
+      'recipeTitle': recipeTitle,
+      'recipeKey': recipeKey,
     };
 
     return map;

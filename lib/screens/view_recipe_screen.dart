@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
 
-class EditRecipeScreen extends StatefulWidget
+class ViewRecipeScreen extends StatefulWidget
 {
   final Recipe recipe;
 
-  const EditRecipeScreen(
+  const ViewRecipeScreen(
   {
     super.key, 
     required this.recipe
   });
 
   @override
-  State<EditRecipeScreen> createState() => EditRecipeScreenState();
+  State<ViewRecipeScreen> createState() => VireRecipeScreenState();
 }
 
-class EditRecipeScreenState extends State<EditRecipeScreen>
+class VireRecipeScreenState extends State<ViewRecipeScreen>
 {
   DatabaseOperations dbOperations = DatabaseOperations();
 

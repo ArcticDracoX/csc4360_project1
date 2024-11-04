@@ -39,7 +39,7 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
         leading: GestureDetector(
           onTap: ()
           {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
           },
           child: const Icon(
             Icons.arrow_back,
@@ -67,6 +67,7 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
+                  maxLines: null,
                   controller: descriptionControl,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -78,6 +79,7 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
+                  maxLines: null,
                   controller: ingredientsControl,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -89,6 +91,7 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
+                  maxLines: null,
                   controller: stepsControl,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -96,12 +99,25 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
                   ),
                 ),
               ),
+
+              Row(
+                children:
+                [
+                  ElevatedButton(
+                    onPressed: ()
+                    {
+                      if(dbOperations.searchF(keyword))
+                    },
+                    child: const Icon(Icons.star, color: Colors.yellow,))
+                ],
+              )
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.edit),
+        backgroundColor: Colors.blue.shade300,
+        child: const Icon(Icons.check),
         onPressed: ()
         {
           widget.recipe.title = titleControl.text;
@@ -110,6 +126,11 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
           widget.recipe.steps = stepsControl.text;
 
           dbOperations.updateR(widget.recipe);
+
+          if(context.mounted)
+          {
+            Navigator.pop(context);
+          }
         },
       ),
     );

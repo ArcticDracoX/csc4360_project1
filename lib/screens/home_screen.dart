@@ -25,7 +25,20 @@ class HomeScreenState extends State<HomeScreen>
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
+            children: <Widget>
+            [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue
+                ),
+                onPressed: ()
+                {
+                  // Simple refresh button
+                  setState((){});
+                },
+                child: const Icon(Icons.refresh, color: Colors.white)
+              ),
+
               FutureBuilder(
                 future: dbOperations.queryAllRowsR(),
                 builder: (context, snapshot)
@@ -38,7 +51,7 @@ class HomeScreenState extends State<HomeScreen>
                         child: Text('Error in snapshot'),
                       );
                     }
-
+                    
                     var data = snapshot.data;
                     if(snapshot.hasData)
                     {
@@ -46,7 +59,7 @@ class HomeScreenState extends State<HomeScreen>
                       {
                         return const Center(child: Text('You have no recipes.'));
                       }
-
+                      
                       return RecipeList(data!);
                     }
                   }
@@ -63,7 +76,7 @@ class HomeScreenState extends State<HomeScreen>
         child: const Icon(Icons.add),
         onPressed: ()
         {
-          Navigator.of(context).push(
+          Navigator.push(context,
             MaterialPageRoute(
               builder: (context) => const AddRecipeScreen()
             ),
