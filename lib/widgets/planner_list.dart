@@ -57,7 +57,7 @@ class PlannerList extends StatelessWidget
             ),
             onDismissed: (direction)
             {
-              dbOperations.deleteP(index);
+              dbOperations.deleteP(planner[index].id);
             },
           );
         },

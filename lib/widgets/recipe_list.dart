@@ -84,7 +84,7 @@ class RecipeList extends StatelessWidget
             ),
             onDismissed: (direction)
             {
-              dbOperations.deleteR(index);
+              dbOperations.deleteR(recipes[index].id);
             },
           );
         },

@@ -57,7 +57,7 @@ class ShoppingListWidget extends StatelessWidget
             ),
             onDismissed: (direction)
             {
-              dbOperations.deleteS(index);
+              dbOperations.deleteS(shoppingList[index].id);
             },
           );
         },

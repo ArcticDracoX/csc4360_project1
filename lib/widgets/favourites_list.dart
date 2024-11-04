@@ -57,7 +57,7 @@ class FavouritesList extends StatelessWidget
             ),
             onDismissed: (direction)
             {
-              dbOperations.deleteF(index);
+              dbOperations.deleteF(favourites[index].id);
             },
           );
         },
