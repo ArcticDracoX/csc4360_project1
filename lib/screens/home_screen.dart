@@ -28,12 +28,12 @@ class HomeScreenState extends State<HomeScreen> {
                 future: dbOperations.queryAllRowsR(),
                 builder: (context, snapshot)
                 {
-                  if(snapshot.hasError)
-                  {
-                    return const Center(
-                      child: Text('Error'),
-                    );
-                  }
+                  // if(snapshot.hasError)
+                  // {
+                  //   return const Center(
+                  //     child: Text('Error'),
+                  //   );
+                  // }
                   var data = snapshot.data;
                   return snapshot.hasData ? RecipeList(data!) : const Center(child: Text('You have no recipes.'),
                   );

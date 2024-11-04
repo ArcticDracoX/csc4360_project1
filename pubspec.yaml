@@ -21,16 +21,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-  assets:
-    - assets/images/recipe1.jpg
-    - assets/images/straw.jpg
-    - assets/images/lasagna.jpg
-    - assets/images/salad.jpg
-    - assets/images/pancakes.jpg
-    - assets/images/carbonara.jpg
-    - assets/images/curry.jpg
-    - assets/images/toast.jpg
-    - assets/images/cake.jpg
-    - assets/images/beef.jpg
-    - assets/images/profile.png

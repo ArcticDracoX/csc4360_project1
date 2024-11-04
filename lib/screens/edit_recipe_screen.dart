@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
+import 'package:recipe_meal_planner/screens/home_screen.dart';
 
 class EditRecipeScreen extends StatefulWidget
 {
   final Recipe recipe;
 
-  EditRecipeScreen(
+  const EditRecipeScreen(
   {
     super.key, 
     required this.recipe
@@ -39,7 +40,7 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
         leading: GestureDetector(
           onTap: ()
           {
-            Navigator.of(context).pushReplacementNamed('/homePage');
+            Navigator.of(context).pop();
           },
           child: const Icon(
             Icons.arrow_back,

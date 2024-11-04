@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
+import 'package:recipe_meal_planner/screens/home_screen.dart';
 
 class AddRecipeScreen extends StatefulWidget
 {
@@ -28,11 +29,11 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
   {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Recipe'),
+        title: const Text('Add Recipe'),
         leading: GestureDetector(
           onTap: ()
           {
-            Navigator.of(context).pushReplacementNamed('/homePage');
+            Navigator.of(context).pop();
           },
           child: const Icon(
             Icons.arrow_back,

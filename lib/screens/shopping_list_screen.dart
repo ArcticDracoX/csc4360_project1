@@ -17,7 +17,7 @@ class ShoppingListScreenState extends State<ShoppingListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recipe List'),
+        title: const Text('Shopping List'),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -35,7 +35,7 @@ class ShoppingListScreenState extends State<ShoppingListScreen> {
                     );
                   }
                   var data = snapshot.data;
-                  return snapshot.hasData ? ShoppingList(data!) : const Center(child: Text('You have no recipes.'),
+                  return snapshot.hasData ? ShoppingListWidget(data!) : const Center(child: Text('You have no recipes.'),
                   );
                 },
               ),

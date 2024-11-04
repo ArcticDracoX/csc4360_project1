@@ -17,7 +17,7 @@ class MealPlannerScreenState extends State<MealPlannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recipe List'),
+        title: const Text('Meal Planner'),
       ),
       body: SingleChildScrollView(
         child: Center(

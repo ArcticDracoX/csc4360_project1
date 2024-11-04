@@ -37,11 +37,12 @@ class BottomNavControllerState extends State<BottomNavController>
 {
   int _currentIndex = 0;
 
-  List<Widget> _screens() => [
-    HomeScreen(), 
-    FavouritesScreen(),        
-    MealPlannerScreen(),
-    ShoppingListScreen(),
+  List<Widget> _screens() =>
+  [
+    const HomeScreen(), 
+    const FavouritesScreen(),        
+    const MealPlannerScreen(),
+    const ShoppingListScreen(),
   ];
 
   @override
@@ -61,7 +62,7 @@ class BottomNavControllerState extends State<BottomNavController>
           });
         },
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.teal,
+        selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
         items: const
         [

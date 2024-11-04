@@ -20,7 +20,7 @@ class FavouritesScreenState extends State<FavouritesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recipe List'),
+        title: const Text('Favourite Recipes'),
       ),
       body: SingleChildScrollView(
         child: Center(
