@@ -91,14 +91,14 @@ class PlannerList extends StatelessWidget
                           ),
                           onPressed: () async
                           {
-                            List<Recipe> recipes = await dbOperations.queryAllRowsR();
+                            List<Recipe> recipes = await dbOperations.searchByIdR(planner[index].recipeKey);
                             if(context.mounted)
                             {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ViewRecipeScreen(
-                                    recipe: recipes[planner[index].recipeKey],
+                                    recipe: recipes[0],
                                   ),
                                 ),
                               );
