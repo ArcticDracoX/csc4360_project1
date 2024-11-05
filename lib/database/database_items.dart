@@ -1,7 +1,7 @@
 // Recipe Item
 class Recipe
 {
-  late int id;
+  late int? id;
   late String title;
   late String description;
   late String ingredients;
@@ -9,7 +9,7 @@ class Recipe
 
   Recipe(
   {
-    required this.id,
+    this.id,
     required this.title,
     required this.description,
     required this.ingredients,
@@ -29,12 +29,16 @@ class Recipe
   {
     var map = <String, dynamic>
     {
-      '_id': id,
       'title': title,
       'description': description,
       'ingredients': ingredients,
       'steps': steps,
     };
+
+    if(id != null)
+    {
+      map['_id'] = id;
+    }
 
     return map;
   }
@@ -65,10 +69,14 @@ class ShoppingList
   {
     var map = <String, dynamic>
     {
-      '_id': id,
       'ingredientsName': ingredientsName,
       'ingredientsKey': ingredientsKey,
     };
+
+    if(id != null)
+    {
+      map['id'] = id;
+    }
 
     return map;
   }

@@ -16,7 +16,14 @@ class ShoppingListScreenState extends State<ShoppingListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shopping List'),
+        title: const Text(
+          'Shopping List',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold
+          ),
+        ),
+        backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
         child: Center(

@@ -29,7 +29,14 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
   {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Recipe'),
+        title: const Text(
+          'Add Recipe',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold
+          ),
+        ),
+        backgroundColor: Colors.blue, 
         leading: GestureDetector(
           onTap: ()
           {
@@ -102,12 +109,31 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
         child: const Icon(Icons.check),
         onPressed: () async
         {
-          int id = (await dbOperations.queryRowCountR()) + 1;
+          int rowCount = await dbOperations.queryRowCountR();
+          int? lastRow = (await dbOperations.queryAllRowsR()).last.id;
+          int? id;
+
+          if(rowCount == 0 || rowCount == lastRow!)
+          {
+            id = null;
+          }
+          else
+          {
+            for(int i = 1; i > rowCount; i++)
+            {
+              int? check = (await dbOperations.queryAllRowsR()).elementAt(i).id;
+              if(i != check!)
+              {
+                id = i;
+              }
+            }
+          }
+
           final recipe = Recipe(
             id: id,
             title: titleControl.text,
             description: descriptionControl.text,
-            ingredients: descriptionControl.text,
+            ingredients: ingredientsControl.text,
             steps: stepsControl.text
           );
 

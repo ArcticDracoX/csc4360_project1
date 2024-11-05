@@ -25,6 +25,37 @@ class FavouritesList extends StatelessWidget
         {
           return Dismissible(
             key: Key('${favourites[index].id}'),
+            direction: DismissDirection.endToStart,
+            secondaryBackground: Container(
+              color: Colors.red,
+              child: const Align(
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>
+                  [
+                    Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                    
+                    Text(
+                      " Delete",
+                      // style: TextStyle(
+                      //   color: Colors.white,
+                      //   fontWeight: FontWeight.w700,
+                      // ),
+                      textAlign: TextAlign.right,
+                    ),
+
+                    SizedBox(
+                      width: 20,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            
             child: Padding(
               padding: const EdgeInsets.all(6.0),
               child: Container(

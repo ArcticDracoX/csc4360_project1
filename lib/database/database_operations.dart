@@ -38,14 +38,18 @@ class DatabaseOperations
     );
   }
 
-  Future<int> deleteR(int id) async
+  Future<int?> deleteR(int? id) async
   {
-    final db = await dbProvider.database;
-    return await db!.delete(
-      RecipeAppDatabase.recipe,
-      where: '${RecipeAppDatabase.recipeId} = ?',
-      whereArgs: [id],
-    );
+    if(id != null)
+    {
+      final db = await dbProvider.database;
+      return await db!.delete(
+        RecipeAppDatabase.recipe,
+        where: '${RecipeAppDatabase.recipeId} = ?',
+        whereArgs: [id],
+      );
+    }
+    return null;
   }
 
   Future<List<Recipe>> searchR(String keyword) async
@@ -53,11 +57,23 @@ class DatabaseOperations
     final db = await dbProvider.database;
     var rows = await db!.query(
       RecipeAppDatabase.recipe,
-      where: 'name LIKE ?',
+      where: '${RecipeAppDatabase.recipeTitle} LIKE ?',
       whereArgs: ['%$keyword%']
     );
     return rows.map((recipe) => Recipe.fromMap(recipe)).toList();
   }
+
+  Future<List<Recipe>> searchByIdR(int searchId) async
+  {
+    final db = await dbProvider.database;
+    var rows = await db!.query(
+      RecipeAppDatabase.recipe,
+      where: '${RecipeAppDatabase.recipeId} LIKE ?',
+      whereArgs: ['%$searchId%']
+    );
+    return rows.map((recipe) => Recipe.fromMap(recipe)).toList();
+  }
+
 
   // Shopping List Functions
   Future<int> insertS(ShoppingList row) async
@@ -101,12 +117,12 @@ class DatabaseOperations
     );
   }
 
-  Future<List<ShoppingList>> searchS(String keyword) async
+  Future<List<ShoppingList>> searchByNameS(String keyword) async
   {
     final db = await dbProvider.database;
     var rows = await db!.query(
       RecipeAppDatabase.shoppingList,
-      where: 'name LIKE ?',
+      where: '${RecipeAppDatabase.shoppingIngredientsName} LIKE ?',
       whereArgs: ['%$keyword%']
     );
     return rows.map((shoppingList) => ShoppingList.fromMap(shoppingList)).toList();
@@ -145,12 +161,12 @@ class DatabaseOperations
     );
   }
 
-  Future<List<Planner>> searchP(String keyword) async
+  Future<List<Planner>> searchByNameP(String keyword) async
   {
     final db = await dbProvider.database;
     var rows = await db!.query(
       RecipeAppDatabase.planner,
-      where: 'name LIKE ?',
+      where: '${RecipeAppDatabase.plannerRecipeTitle} LIKE ?',
       whereArgs: ['%$keyword%']
     );
     return rows.map((planner) => Planner.fromMap(planner)).toList();
@@ -208,12 +224,12 @@ class DatabaseOperations
     );
   }
 
-  Future<List<Favourites>> searchF(String keyword) async
+  Future<List<Favourites>> searchByNameF(String keyword) async
   {
     final db = await dbProvider.database;
     var rows = await db!.query(
       RecipeAppDatabase.favourites,
-      where: 'name LIKE ?',
+      where: '${RecipeAppDatabase.favRecipeTitle} LIKE ?',
       whereArgs: ['%$keyword%']
     );
     return rows.map((favourites) => Favourites.fromMap(favourites)).toList();

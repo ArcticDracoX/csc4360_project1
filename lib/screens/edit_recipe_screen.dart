@@ -35,7 +35,14 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Recipe'),
+        title: const Text(
+          'Edit Recipe',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold
+          ),
+        ),
+        backgroundColor: Colors.blue,
         leading: GestureDetector(
           onTap: ()
           {

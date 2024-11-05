@@ -88,6 +88,7 @@ class RecipeAppDatabase
       CREATE TABLE $planner (
         $plannerId INTEGER PRIMARY KEY AUTOINCREMENT,
         $plannerRecipeTitle TEXT NOT NULL,
+        $plannerRecipeKey INTEGER NOT NULL,
         FOREIGN KEY($plannerRecipeTitle) REFERENCES $recipe($recipeTitle),
         FOREIGN KEY($plannerRecipeKey) REFERENCES $recipe($recipeId)
       )

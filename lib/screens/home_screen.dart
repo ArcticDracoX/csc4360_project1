@@ -19,7 +19,14 @@ class HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recipe List'),
+        title: const Text(
+          'Recipe List',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold
+          ),
+        ),
+        backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
         child: Center(

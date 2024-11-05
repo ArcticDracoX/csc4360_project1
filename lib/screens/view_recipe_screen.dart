@@ -25,7 +25,14 @@ class VireRecipeScreenState extends State<ViewRecipeScreen>
   { 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.recipe.title),
+        title: const Text(
+          'Recipe Details',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold
+          ),
+        ),
+        backgroundColor: Colors.blue,
         leading: GestureDetector(
           onTap: ()
           {
@@ -47,56 +54,109 @@ class VireRecipeScreenState extends State<ViewRecipeScreen>
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children:
                   [
-                    const Text(
-                      'Description',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      padding: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        border: Border.all(
+                          color: Colors.blue,
+                          width: 1.5,
+                        ),
+                        borderRadius: BorderRadius.circular(4.0)
                       ),
-                    ),
+                      constraints: const BoxConstraints(minWidth: double.infinity),
+                      child: Column(
+                        children:
+                        [ 
+                          Text(
+                            widget.recipe.title,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
 
-                    const SizedBox(height: 8),
+                          const SizedBox(height: 8),
 
-                    Text(
-                      widget.recipe.description,
-                      style: const TextStyle(fontSize: 16),
+                          Text(
+                            widget.recipe.description,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
 
                     const SizedBox(height: 16),
 
-                    const Text(
-                      'Ingredients',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      padding: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.shade600,
+                          width: 1.5,
+                        ),
+                        borderRadius: BorderRadius.circular(4.0)
+                      ),
+                      child: Column(
+                        children:
+                        [ 
+                          const Text(
+                            'Ingredients',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                          const SizedBox(height: 8),
+                          
+                          Text(
+                            widget.recipe.ingredients,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
                       ),
                     ),
 
-                    const SizedBox(height: 8),
-                    
-                    Text(
-                      widget.recipe.ingredients,
-                      style: const TextStyle(fontSize: 16),
-                    ),
+                    const SizedBox(height: 16), 
 
-                    const SizedBox(height: 16),
-
-                    const Text(
-                      'Steps',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      padding: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.shade600,
+                          width: 1.5,
+                        ),
+                        borderRadius: BorderRadius.circular(4.0)
                       ),
-                    ),
+                      child: Column(
+                        children:
+                        [ 
+                          const Text(
+                            'Steps',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
 
-                    const SizedBox(height: 8),
-                    
-                    Text(
-                      widget.recipe.steps,
-                      style: const TextStyle(fontSize: 16),
+                          const SizedBox(height: 8),
+                          
+                          Text(
+                            widget.recipe.steps,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

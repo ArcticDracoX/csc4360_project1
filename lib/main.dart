@@ -67,7 +67,7 @@ class BottomNavControllerState extends State<BottomNavController>
         items: const
         [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favorites'),
           BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Meal Planner'),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Shopping List'),
         ],

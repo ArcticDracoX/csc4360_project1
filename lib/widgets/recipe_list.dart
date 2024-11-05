@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
 import 'package:recipe_meal_planner/screens/edit_recipe_screen.dart';
+import 'package:recipe_meal_planner/screens/view_recipe_screen.dart';
 
 class RecipeList extends StatelessWidget
 {
@@ -25,8 +26,8 @@ class RecipeList extends StatelessWidget
         {
           return Dismissible(
             key: Key('${recipes[index].id}'),
-             background:
-            Container(
+            direction: DismissDirection.horizontal,
+            background: Container(
               color: Colors.green,
               child: const Align(
                 alignment: Alignment.centerLeft,
@@ -85,6 +86,7 @@ class RecipeList extends StatelessWidget
                 ),
               ),
             ),
+            
             child: Padding(
               padding: const EdgeInsets.all(6.0),
               child: Container(
@@ -125,13 +127,13 @@ class RecipeList extends StatelessWidget
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => EditRecipeScreen(
+                                    builder: (context) => ViewRecipeScreen(
                                       recipe: recipes[index],
                                     ),
                                   ),
                                 );
                               },
-                              child: const Icon(Icons.edit, color: Colors.white),
+                              child: const Icon(Icons.remove_red_eye, color: Colors.white),
                             ),
                           ],
                         ),
