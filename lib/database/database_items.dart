@@ -1,7 +1,7 @@
 // Recipe Item
 class Recipe
 {
-  late int? id;
+  late int id;
   late String title;
   late String description;
   late String ingredients;
@@ -9,7 +9,7 @@ class Recipe
 
   Recipe(
   {
-    this.id,
+    required this.id,
     required this.title,
     required this.description,
     required this.ingredients,
@@ -29,16 +29,12 @@ class Recipe
   {
     var map = <String, dynamic>
     {
+      '_id': id,
       'title': title,
       'description': description,
       'ingredients': ingredients,
       'steps': steps,
     };
-
-    if(id != null)
-    {
-      map['_id'] = id;
-    }
 
     return map;
   }
@@ -47,13 +43,13 @@ class Recipe
 // Shopping List
 class ShoppingList
 {
-  late int? id;
+  late int id;
   late String ingredientsName;
   late int ingredientsKey;
 
   ShoppingList(
   {
-    this.id,
+    required this.id,
     required this.ingredientsName,
     required this.ingredientsKey,
   });
@@ -69,14 +65,10 @@ class ShoppingList
   {
     var map = <String, dynamic>
     {
+      '_id': id,
       'ingredientsName': ingredientsName,
       'ingredientsKey': ingredientsKey,
     };
-
-    if(id != null)
-    {
-      map['_id'] = id;
-    }
 
     return map;
   }
@@ -85,13 +77,13 @@ class ShoppingList
 // Planner List
 class Planner
 {
-  late int? id;
+  late int id;
   late String recipeTitle;
   late int recipeKey;
 
   Planner(
   {
-    this.id,
+    required this.id,
     required this.recipeTitle,
   });
 
@@ -106,14 +98,10 @@ class Planner
   {
     var map = <String, dynamic>
     {
+      '_id': id,
       'plannerRecipeTitle': recipeTitle,
       'plannerRecipeKey': recipeKey,
     };
-
-    if(id != null)
-    {
-      map['_id'] = id;
-    }
 
     return map;
   }
@@ -122,13 +110,13 @@ class Planner
 // Favourites List
 class Favourites
 {
-  late int? id;
+  late int id;
   late String recipeTitle;
   late int recipeKey;
 
   Favourites(
   {
-    this.id,
+    required this.id,
     required this.recipeTitle,
     required this.recipeKey,
   });
@@ -144,14 +132,10 @@ class Favourites
   {
     var map = <String, dynamic>
     {
+      '_id': id,
       'recipeTitle': recipeTitle,
       'recipeKey': recipeKey,
     };
-
-    if(id != null)
-    {
-      map['_id'] = id;
-    }
 
     return map;
   }

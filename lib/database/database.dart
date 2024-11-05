@@ -66,7 +66,7 @@ class RecipeAppDatabase
   {
     await db.execute('''
       CREATE TABLE $recipe (
-        $recipeId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $recipeId INTEGER PRIMARY KEY,
         $recipeTitle TEXT NOT NULL,
         $recipeDesc TEXT NOT NULL,
         $recipeIngredients TEXT NOT NULL,
@@ -76,7 +76,7 @@ class RecipeAppDatabase
 
     await db.execute('''
       CREATE TABLE $shoppingList (
-        $shoppingId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $shoppingId INTEGER PRIMARY KEY,
         $shoppingIngredientsName TEXT NOT NULL,
         $shoppingKey INTEGER NOT NULL,
         FOREIGN KEY($shoppingIngredientsName) REFERENCES $recipe($recipeIngredients),
@@ -86,7 +86,7 @@ class RecipeAppDatabase
 
     await db.execute('''
       CREATE TABLE $planner (
-        $plannerId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $plannerId INTEGER PRIMARY KEY,
         $plannerRecipeTitle TEXT NOT NULL,
         $plannerRecipeKey INTEGER NOT NULL,
         FOREIGN KEY($plannerRecipeTitle) REFERENCES $recipe($recipeTitle),
@@ -96,7 +96,7 @@ class RecipeAppDatabase
 
     await db.execute('''
       CREATE TABLE $favourites (
-        $favId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $favId INTEGER PRIMARY KEY,
         $favRecipeTitle TEXT NOT NULL,
         $favRecipeKey INTEGER NOT NULL,
         FOREIGN KEY($favRecipeTitle) REFERENCES $recipe($recipeTitle),

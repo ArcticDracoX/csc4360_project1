@@ -109,24 +109,11 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
         child: const Icon(Icons.check),
         onPressed: () async
         {
-          int rowCount = await dbOperations.queryRowCountR();
-          int? lastRow = (await dbOperations.queryAllRowsR()).last.id;
-          int? id;
+          int id = 1;
 
-          if(rowCount == 0 || rowCount == lastRow!)
+          while((await dbOperations.searchByIdR(id)).isNotEmpty)
           {
-            id = null;
-          }
-          else
-          {
-            for(int i = 1; i > rowCount; i++)
-            {
-              int? check = (await dbOperations.queryAllRowsR()).elementAt(i).id;
-              if(i != check!)
-              {
-                id = i;
-              }
-            }
+            id++;
           }
 
           final recipe = Recipe(
