@@ -20,22 +20,12 @@ class VireRecipeScreenState extends State<ViewRecipeScreen>
 {
   DatabaseOperations dbOperations = DatabaseOperations();
 
-  final titleControl = TextEditingController();
-  final descriptionControl = TextEditingController();
-  final ingredientsControl = TextEditingController();
-  final stepsControl = TextEditingController();
-
   @override
   Widget build(BuildContext context)
-  {
-    titleControl.text = widget.recipe.title;
-    descriptionControl.text = widget.recipe.description;
-    ingredientsControl.text = widget.recipe.ingredients;
-    stepsControl.text = widget.recipe.steps;
-    
+  { 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Recipe'),
+        title: Text(widget.recipe.title),
         leading: GestureDetector(
           onTap: ()
           {
@@ -55,46 +45,60 @@ class VireRecipeScreenState extends State<ViewRecipeScreen>
             [
               // Make all these display the respective text in neat boxes that indicate which is which
               Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextField(
-                  controller: titleControl,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Title'
-                  ),
-                ),
-              ),
-              
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextField(
-                  controller: descriptionControl,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Description'
-                  ),
-                ),
-              ),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children:
+                  [
+                    const Text(
+                      'Description',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
 
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextField(
-                  controller: ingredientsControl,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Ingredients'
-                  ),
-                ),
-              ),
+                    const SizedBox(height: 8),
 
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextField(
-                  controller: stepsControl,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Steps'
-                  ),
+                    Text(
+                      widget.recipe.description,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    const Text(
+                      'Ingredients',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 8),
+                    
+                    Text(
+                      widget.recipe.ingredients,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    const Text(
+                      'Steps',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 8),
+                    
+                    Text(
+                      widget.recipe.steps,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ],
                 ),
               ),
             ],
