@@ -119,8 +119,19 @@ class DatabaseOperations
     final db = await dbProvider.database;
     var rows = await db!.query(
       RecipeAppDatabase.shoppingList,
-      where: '${RecipeAppDatabase.shoppingIngredientsName} LIKE ?',
+      where: '${RecipeAppDatabase.shoppingRecipeTitle} LIKE ?',
       whereArgs: ['%$keyword%']
+    );
+    return rows.map((shoppingList) => ShoppingList.fromMap(shoppingList)).toList();
+  }
+
+  Future<List<ShoppingList>> searchByIdS(int searchId) async
+  {
+    final db = await dbProvider.database;
+    var rows = await db!.query(
+      RecipeAppDatabase.shoppingList,
+      where: '${RecipeAppDatabase.shoppingId} LIKE ?',
+      whereArgs: ['%$searchId%']
     );
     return rows.map((shoppingList) => ShoppingList.fromMap(shoppingList)).toList();
   }
@@ -157,6 +168,16 @@ class DatabaseOperations
       whereArgs: [row.id],
     );
   }
+  
+  Future<int> deleteP(int id) async
+  {
+    final db = await dbProvider.database;
+    return await db!.delete(
+      RecipeAppDatabase.planner,
+      where: '${RecipeAppDatabase.plannerId} = ?',
+      whereArgs: [id],
+    );
+  }
 
   Future<List<Planner>> searchByNameP(String keyword) async
   {
@@ -169,14 +190,15 @@ class DatabaseOperations
     return rows.map((planner) => Planner.fromMap(planner)).toList();
   }
 
-  Future<int> deleteP(int id) async
+  Future<List<Planner>> searchByIdP(int searchId) async
   {
     final db = await dbProvider.database;
-    return await db!.delete(
+    var rows = await db!.query(
       RecipeAppDatabase.planner,
-      where: '${RecipeAppDatabase.plannerId} = ?',
-      whereArgs: [id],
+      where: '${RecipeAppDatabase.plannerId} LIKE ?',
+      whereArgs: ['%$searchId%']
     );
+    return rows.map((planner) => Planner.fromMap(planner)).toList();
   }
 
 // Favourites Functions
@@ -229,6 +251,17 @@ class DatabaseOperations
       RecipeAppDatabase.favourites,
       where: '${RecipeAppDatabase.favRecipeTitle} LIKE ?',
       whereArgs: ['%$keyword%']
+    );
+    return rows.map((favourites) => Favourites.fromMap(favourites)).toList();
+  }
+
+  Future<List<Favourites>> searchByIdF(int searchId) async
+  {
+    final db = await dbProvider.database;
+    var rows = await db!.query(
+      RecipeAppDatabase.favourites,
+      where: '${RecipeAppDatabase.favId} LIKE ?',
+      whereArgs: ['%$searchId%']
     );
     return rows.map((favourites) => Favourites.fromMap(favourites)).toList();
   }

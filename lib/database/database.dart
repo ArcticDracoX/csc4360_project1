@@ -21,8 +21,8 @@ class RecipeAppDatabase
   // Shopping List references Recipes
   static const shoppingList = 'shopping';
   static const shoppingId = '_id';
-  static const shoppingIngredientsName = 'ingredientsName';
-  static const shoppingKey = 'ingredientsKey';
+  static const shoppingRecipeTitle = 'recipeTitle';
+  static const shoppingKey = 'recipeKey';
 
   // Planner references Recipes
   static const planner = 'planner';
@@ -32,7 +32,7 @@ class RecipeAppDatabase
 
   // Favourites references Recipes
   static const favourites = 'favourites';
-  static const favId = 'favId';
+  static const favId = '_id';
   static const favRecipeTitle = 'recipeTitle';
   static const favRecipeKey = 'recipeKey';
 
@@ -69,7 +69,7 @@ class RecipeAppDatabase
         $recipeId INTEGER PRIMARY KEY,
         $recipeTitle TEXT NOT NULL,
         $recipeDesc TEXT NOT NULL,
-        $recipeIngredients TEXT NOT NULL,
+        $recipeTitle TEXT NOT NULL,
         $recipeSteps TEXT NOT NULL
       )
     ''');
@@ -77,9 +77,9 @@ class RecipeAppDatabase
     await db.execute('''
       CREATE TABLE $shoppingList (
         $shoppingId INTEGER PRIMARY KEY,
-        $shoppingIngredientsName TEXT NOT NULL,
+        $shoppingRecipeTitle TEXT NOT NULL,
         $shoppingKey INTEGER NOT NULL,
-        FOREIGN KEY($shoppingIngredientsName) REFERENCES $recipe($recipeIngredients),
+        FOREIGN KEY($shoppingRecipeTitle) REFERENCES $recipe($recipeTitle),
         FOREIGN KEY($shoppingKey) REFERENCES $recipe($recipeId)
       )
     ''');

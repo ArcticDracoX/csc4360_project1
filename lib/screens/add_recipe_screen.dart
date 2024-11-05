@@ -44,6 +44,7 @@ class AddRecipeScreenState extends State<AddRecipeScreen>
           },
           child: const Icon(
             Icons.arrow_back,
+            color: Colors.white,
           ),
         ),
       ),

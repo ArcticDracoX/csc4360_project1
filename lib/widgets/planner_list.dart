@@ -26,7 +26,7 @@ class PlannerList extends StatelessWidget
           return Dismissible(
             key: Key('${planner[index].id}'),
             direction: DismissDirection.endToStart,
-            secondaryBackground: Container(
+            background: Container(
               color: Colors.red,
               child: const Align(
                 alignment: Alignment.centerRight,
@@ -41,10 +41,10 @@ class PlannerList extends StatelessWidget
                     
                     Text(
                       " Delete",
-                      // style: TextStyle(
-                      //   color: Colors.white,
-                      //   fontWeight: FontWeight.w700,
-                      // ),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                       textAlign: TextAlign.right,
                     ),
 
@@ -68,9 +68,20 @@ class PlannerList extends StatelessWidget
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>
                     [
-                      Text('${planner[index].id}'),
+                      Text('  ${planner[index].id}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                      ),
 
-                      Text(planner[index].recipeTitle),
+                      Text(planner[index].recipeTitle,
+                        style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       
                       Padding(
                         padding: const EdgeInsets.all(8.0),

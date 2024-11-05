@@ -26,7 +26,7 @@ class FavouritesList extends StatelessWidget
           return Dismissible(
             key: Key('${favourites[index].id}'),
             direction: DismissDirection.endToStart,
-            secondaryBackground: Container(
+            background: Container(
               color: Colors.red,
               child: const Align(
                 alignment: Alignment.centerRight,
@@ -41,10 +41,10 @@ class FavouritesList extends StatelessWidget
                     
                     Text(
                       " Delete",
-                      // style: TextStyle(
-                      //   color: Colors.white,
-                      //   fontWeight: FontWeight.w700,
-                      // ),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                       textAlign: TextAlign.right,
                     ),
 
@@ -68,9 +68,20 @@ class FavouritesList extends StatelessWidget
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>
                     [
-                      Text('${favourites[index].id}'),
+                      Text('  ${favourites[index].id}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                      ),
 
-                      Text(favourites[index].recipeTitle),
+                      Text(favourites[index].recipeTitle,
+                        style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       
                       Padding(
                         padding: const EdgeInsets.all(8.0),

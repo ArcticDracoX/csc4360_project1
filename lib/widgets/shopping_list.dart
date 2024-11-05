@@ -26,7 +26,7 @@ class ShoppingListWidget extends StatelessWidget
           return Dismissible(
             key: Key('${shoppingList[index].id}'),
             direction: DismissDirection.endToStart,
-            secondaryBackground: Container(
+            background: Container(
               color: Colors.red,
               child: const Align(
                 alignment: Alignment.centerRight,
@@ -41,10 +41,10 @@ class ShoppingListWidget extends StatelessWidget
                     
                     Text(
                       " Delete",
-                      // style: TextStyle(
-                      //   color: Colors.white,
-                      //   fontWeight: FontWeight.w700,
-                      // ),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                       textAlign: TextAlign.right,
                     ),
 
@@ -68,9 +68,20 @@ class ShoppingListWidget extends StatelessWidget
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>
                     [
-                      Text('${shoppingList[index].id}'),
+                      Text('  ${shoppingList[index].id}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                      ),
 
-                      Text(shoppingList[index].ingredientsName),
+                      Text(shoppingList[index].recipeTitle,
+                        style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -87,7 +98,7 @@ class ShoppingListWidget extends StatelessWidget
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ViewRecipeScreen(
-                                    recipe: recipes[shoppingList[index].ingredientsKey],
+                                    recipe: recipes[shoppingList[index].recipeKey],
                                   ),
                                 ),
                               );

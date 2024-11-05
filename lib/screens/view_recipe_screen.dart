@@ -22,7 +22,7 @@ class VireRecipeScreenState extends State<ViewRecipeScreen>
 
   @override
   Widget build(BuildContext context)
-  { 
+  {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -40,6 +40,7 @@ class VireRecipeScreenState extends State<ViewRecipeScreen>
           },
           child: const Icon(
             Icons.arrow_back,
+            color: Colors.white,
           ),
         ),
       ),
@@ -57,6 +58,108 @@ class VireRecipeScreenState extends State<ViewRecipeScreen>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children:
                   [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children:
+                      [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue
+                          ),
+                          onPressed: () async
+                          {
+                            int id = 1;
+                            while((await dbOperations.searchByIdF(id)).isNotEmpty)
+                            {
+                              id++;
+                            }
+
+                            final favRecipe = Favourites(
+                              id: id,
+                              recipeTitle: widget.recipe.title,
+                              recipeKey: widget.recipe.id,
+                            );
+
+                            dbOperations.insertF(favRecipe);
+
+                            if(context.mounted)
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar( 
+                                const SnackBar( 
+                                  content: Text('Recipe added to favourites'), 
+                                  duration: Duration(seconds: 2),
+                                ), 
+                              ); 
+                            }
+                          },
+                          child: const Icon(Icons.star, color: Colors.white),
+                        ),
+
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue),
+                          onPressed: () async
+                          {
+                            int id = 1;
+                            while((await dbOperations.searchByIdP(id)).isNotEmpty)
+                            {
+                              id++;
+                            }
+
+                            final planRecipe = Planner(
+                              id: id,
+                              recipeTitle: widget.recipe.title,
+                              recipeKey: widget.recipe.id,
+                            );
+
+                            dbOperations.insertP(planRecipe);
+
+                            if(context.mounted)
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar( 
+                                const SnackBar( 
+                                  content: Text('Recipe added to planner'),
+                                  duration: Duration(seconds: 2),
+                                ), 
+                              ); 
+                            }
+                          },
+                          child: const Icon(Icons.calendar_today, color: Colors.white),
+                        ),
+
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue),
+                          onPressed: () async {
+                            int id = 1;
+                            while ((await dbOperations.searchByIdS(id)).isNotEmpty)
+                            {
+                              id++;
+                            }
+
+                            final shoppingRecipe = ShoppingList(
+                              id: id,
+                              recipeTitle: widget.recipe.title,
+                              recipeKey: widget.recipe.id,
+                            );
+
+                            dbOperations.insertS(shoppingRecipe);
+
+                            if(context.mounted)
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar( 
+                                const SnackBar( 
+                                  content: Text('Recipe added to shopping list'), 
+                                  duration: Duration(seconds: 2),
+                                ), 
+                              ); 
+                            }
+                          },
+                          child: const Icon(Icons.shopping_cart, color: Colors.white),
+                        ),
+                      ],
+                    ),
+
                     Container(
                       padding: const EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
@@ -116,7 +219,7 @@ class VireRecipeScreenState extends State<ViewRecipeScreen>
                           ),
 
                           const SizedBox(height: 8),
-                          
+
                           Text(
                             widget.recipe.ingredients,
                             textAlign: TextAlign.left,
@@ -126,7 +229,7 @@ class VireRecipeScreenState extends State<ViewRecipeScreen>
                       ),
                     ),
 
-                    const SizedBox(height: 16), 
+                    const SizedBox(height: 16),
 
                     Container(
                       padding: const EdgeInsets.all(10.0),
@@ -149,7 +252,7 @@ class VireRecipeScreenState extends State<ViewRecipeScreen>
                           ),
 
                           const SizedBox(height: 8),
-                          
+
                           Text(
                             widget.recipe.steps,
                             textAlign: TextAlign.left,

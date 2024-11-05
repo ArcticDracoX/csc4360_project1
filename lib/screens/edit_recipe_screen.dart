@@ -50,6 +50,7 @@ class EditRecipeScreenState extends State<EditRecipeScreen>
           },
           child: const Icon(
             Icons.arrow_back,
+            color: Colors.white,
           ),
         ),
       ),

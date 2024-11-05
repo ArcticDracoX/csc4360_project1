@@ -72,10 +72,10 @@ class RecipeList extends StatelessWidget
                     
                     Text(
                       " Delete",
-                      // style: TextStyle(
-                      //   color: Colors.white,
-                      //   fontWeight: FontWeight.w700,
-                      // ),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                       textAlign: TextAlign.right,
                     ),
 
@@ -111,6 +111,7 @@ class RecipeList extends StatelessWidget
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
                       ),
                       
                       Padding(

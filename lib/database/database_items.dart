@@ -44,21 +44,21 @@ class Recipe
 class ShoppingList
 {
   late int id;
-  late String ingredientsName;
-  late int ingredientsKey;
+  late String recipeTitle;
+  late int recipeKey;
 
   ShoppingList(
   {
     required this.id,
-    required this.ingredientsName,
-    required this.ingredientsKey,
+    required this.recipeTitle,
+    required this.recipeKey,
   });
 
    ShoppingList.fromMap(dynamic obj)
    {
     id = obj['_id'];
-    ingredientsName = obj['ingredientsName'];
-    ingredientsKey = obj['ingredientsKey'];
+    recipeTitle = obj['recipeTitle'];
+    recipeKey = obj['recipeKey'];
   }
 
   Map<String, dynamic> toMap()
@@ -66,8 +66,8 @@ class ShoppingList
     var map = <String, dynamic>
     {
       '_id': id,
-      'ingredientsName': ingredientsName,
-      'ingredientsKey': ingredientsKey,
+      'recipeTitle': recipeTitle,
+      'recipeKey': recipeKey,
     };
 
     return map;
@@ -85,6 +85,7 @@ class Planner
   {
     required this.id,
     required this.recipeTitle,
+    required this.recipeKey,
   });
 
    Planner.fromMap(dynamic obj)
@@ -99,8 +100,8 @@ class Planner
     var map = <String, dynamic>
     {
       '_id': id,
-      'plannerRecipeTitle': recipeTitle,
-      'plannerRecipeKey': recipeKey,
+      'recipeTitle': recipeTitle,
+      'recipeKey': recipeKey,
     };
 
     return map;
