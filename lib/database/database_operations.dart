@@ -107,14 +107,18 @@ class DatabaseOperations
     );
   }
 
-  Future<int> deleteS(int id) async
+  Future<int?> deleteS(int? id) async
   {
-    final db = await dbProvider.database;
-    return await db!.delete(
-      RecipeAppDatabase.shoppingList,
-      where: '${RecipeAppDatabase.shoppingList} = ?',
-      whereArgs: [id],
-    );
+    if(id != null)
+    {
+      final db = await dbProvider.database;
+      return await db!.delete(
+        RecipeAppDatabase.shoppingList,
+        where: '${RecipeAppDatabase.shoppingList} = ?',
+        whereArgs: [id],
+      );
+    }
+    return null;
   }
 
   Future<List<ShoppingList>> searchByNameS(String keyword) async
@@ -172,14 +176,18 @@ class DatabaseOperations
     return rows.map((planner) => Planner.fromMap(planner)).toList();
   }
 
-  Future<int> deleteP(int id) async
+  Future<int?> deleteP(int? id) async
   {
-    final db = await dbProvider.database;
-    return await db!.delete(
-      RecipeAppDatabase.planner,
-      where: '${RecipeAppDatabase.plannerId} = ?',
-      whereArgs: [id],
-    );
+    if(id != null)
+    {
+      final db = await dbProvider.database;
+      return await db!.delete(
+        RecipeAppDatabase.planner,
+        where: '${RecipeAppDatabase.plannerId} = ?',
+        whereArgs: [id],
+      );
+    }
+    return null;
   }
 
 // Favourites Functions
@@ -214,14 +222,18 @@ class DatabaseOperations
     );
   }
 
-  Future<int> deleteF(int id) async
+  Future<int?> deleteF(int? id) async
   {
-    final db = await dbProvider.database;
-    return await db!.delete(
-      RecipeAppDatabase.favourites,
-      where: '${RecipeAppDatabase.favId} = ?',
-      whereArgs: [id],
-    );
+    if(id != null)
+    {
+      final db = await dbProvider.database;
+      return await db!.delete(
+        RecipeAppDatabase.favourites,
+        where: '${RecipeAppDatabase.favId} = ?',
+        whereArgs: [id],
+      );
+    }
+    return null;
   }
 
   Future<List<Favourites>> searchByNameF(String keyword) async

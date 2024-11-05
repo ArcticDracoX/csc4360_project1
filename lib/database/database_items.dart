@@ -47,13 +47,13 @@ class Recipe
 // Shopping List
 class ShoppingList
 {
-  late int id;
+  late int? id;
   late String ingredientsName;
   late int ingredientsKey;
 
   ShoppingList(
   {
-    required this.id,
+    this.id,
     required this.ingredientsName,
     required this.ingredientsKey,
   });
@@ -75,7 +75,7 @@ class ShoppingList
 
     if(id != null)
     {
-      map['id'] = id;
+      map['_id'] = id;
     }
 
     return map;
@@ -85,13 +85,13 @@ class ShoppingList
 // Planner List
 class Planner
 {
-  late int id;
+  late int? id;
   late String recipeTitle;
   late int recipeKey;
 
   Planner(
   {
-    required this.id,
+    this.id,
     required this.recipeTitle,
   });
 
@@ -106,10 +106,14 @@ class Planner
   {
     var map = <String, dynamic>
     {
-      '_id': id,
       'plannerRecipeTitle': recipeTitle,
       'plannerRecipeKey': recipeKey,
     };
+
+    if(id != null)
+    {
+      map['_id'] = id;
+    }
 
     return map;
   }
@@ -118,13 +122,13 @@ class Planner
 // Favourites List
 class Favourites
 {
-  late int id;
+  late int? id;
   late String recipeTitle;
   late int recipeKey;
 
   Favourites(
   {
-    required this.id,
+    this.id,
     required this.recipeTitle,
     required this.recipeKey,
   });
@@ -140,10 +144,14 @@ class Favourites
   {
     var map = <String, dynamic>
     {
-      '_id': id,
       'recipeTitle': recipeTitle,
       'recipeKey': recipeKey,
     };
+
+    if(id != null)
+    {
+      map['_id'] = id;
+    }
 
     return map;
   }
