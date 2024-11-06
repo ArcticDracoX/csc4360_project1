@@ -69,7 +69,7 @@ class RecipeAppDatabase
         $recipeId INTEGER PRIMARY KEY,
         $recipeTitle TEXT NOT NULL,
         $recipeDesc TEXT NOT NULL,
-        $recipeTitle TEXT NOT NULL,
+        $recipeIngredients TEXT NOT NULL,
         $recipeSteps TEXT NOT NULL
       )
     ''');
