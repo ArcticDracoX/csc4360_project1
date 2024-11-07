@@ -3,19 +3,22 @@ import 'package:recipe_meal_planner/database/database_operations.dart';
 import 'package:recipe_meal_planner/screens/functions/add_shopping_screen.dart';
 import 'package:recipe_meal_planner/widgets/shopping_list.dart';
 
-class ShoppingListScreen extends StatefulWidget {
+class ShoppingListScreen extends StatefulWidget
+{
   const ShoppingListScreen({super.key});
 
   @override
   State<ShoppingListScreen> createState() => ShoppingListScreenState();
 }
 
-class ShoppingListScreenState extends State<ShoppingListScreen> {
+class ShoppingListScreenState extends State<ShoppingListScreen>
+{
   DatabaseOperations dbOperations = DatabaseOperations();
   String keyword = '';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Scaffold(
       appBar: AppBar(
         title: const Text(

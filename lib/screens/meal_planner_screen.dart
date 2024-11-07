@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
 import 'package:recipe_meal_planner/widgets/planner_list.dart';
 
-class MealPlannerScreen extends StatefulWidget {
+class MealPlannerScreen extends StatefulWidget
+{
   const MealPlannerScreen({super.key});
 
   @override
   State<MealPlannerScreen> createState() => MealPlannerScreenState();
 }
 
-class MealPlannerScreenState extends State<MealPlannerScreen> {
+class MealPlannerScreenState extends State<MealPlannerScreen>
+{
   DatabaseOperations dbOperations = DatabaseOperations();
   String keyword = '';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       appBar: AppBar(
         title: const Text(

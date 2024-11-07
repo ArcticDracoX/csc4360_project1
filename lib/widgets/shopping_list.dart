@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
 import 'package:recipe_meal_planner/screens/functions/edit_shopping_screen.dart';
-import 'package:recipe_meal_planner/screens/functions/view_recipe_screen.dart';
 import 'package:recipe_meal_planner/screens/functions/view_shopping_screen.dart';
 
 class ShoppingListWidget extends StatelessWidget
