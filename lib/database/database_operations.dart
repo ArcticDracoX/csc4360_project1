@@ -14,19 +14,21 @@ class DatabaseOperations
     return await db!.insert(RecipeAppDatabase.recipe, row.toMap());
   }
 
-  Future<List<Recipe>> queryAllRowsR() async
-  {
-    final db = await dbProvider.database;
-    var rows = await db!.query(RecipeAppDatabase.recipe);
-    return rows.map((recipe) => Recipe.fromMap(recipe)).toList();
-  }
+  // Originally used for ID and was copied to all other functions
+  // Saved just in case
+  // Future<List<Recipe>> queryAllRowsR() async
+  // {
+  //   final db = await dbProvider.database;
+  //   var rows = await db!.query(RecipeAppDatabase.recipe);
+  //   return rows.map((recipe) => Recipe.fromMap(recipe)).toList();
+  // }
 
-  Future<int> queryRowCountR() async
-  {
-    final db = await dbProvider.database;
-    final results = await db!.rawQuery('SELECT COUNT(*) FROM ${RecipeAppDatabase.recipe}');
-    return Sqflite.firstIntValue(results) ?? 0;
-  }
+  // Future<int> queryRowCountR() async
+  // {
+  //   final db = await dbProvider.database;
+  //   final results = await db!.rawQuery('SELECT COUNT(*) FROM ${RecipeAppDatabase.recipe}');
+  //   return Sqflite.firstIntValue(results) ?? 0;
+  // }
 
   Future<int> updateR(Recipe row) async
   {
@@ -80,20 +82,6 @@ class DatabaseOperations
     return await db!.insert(RecipeAppDatabase.shoppingList, row.toMap());
   }
 
-  Future<List<ShoppingList>> queryAllRowsS() async
-  {
-    final db = await dbProvider.database;
-    var rows = await db!.query(RecipeAppDatabase.shoppingList);
-    return rows.map((shoppingList) => ShoppingList.fromMap(shoppingList)).toList();
-  }
-
-  Future<int> queryRowCountS() async
-  {
-    final db = await dbProvider.database;
-    final results = await db!.rawQuery('SELECT COUNT(*) FROM ${RecipeAppDatabase.shoppingList}');
-    return Sqflite.firstIntValue(results) ?? 0;
-  }
-
   Future<int> updateS(ShoppingList row) async
   {
     final db = await dbProvider.database;
@@ -144,31 +132,6 @@ class DatabaseOperations
     final db = await dbProvider.database;
     return await db!.insert(RecipeAppDatabase.planner, row.toMap());
   }
-
-  Future<List<Planner>> queryAllRowsP() async
-  {
-    final db = await dbProvider.database;
-    var rows = await db!.query(RecipeAppDatabase.planner);
-    return rows.map((planner) => Planner.fromMap(planner)).toList();
-  }
-
-  Future<int> queryRowCountP() async
-  {
-    final db = await dbProvider.database;
-    final results = await db!.rawQuery('SELECT COUNT(*) FROM ${RecipeAppDatabase.planner}');
-    return Sqflite.firstIntValue(results) ?? 0;
-  }
-
-  Future<int> updateP(Planner row) async
-  {
-    final db = await dbProvider.database;
-    return await db!.update(
-      RecipeAppDatabase.planner,
-      row.toMap(),
-      where: '${RecipeAppDatabase.plannerId} = ?',
-      whereArgs: [row.id],
-    );
-  }
   
   Future<int> deleteP(int id) async
   {
@@ -209,20 +172,6 @@ class DatabaseOperations
     return await db!.insert(RecipeAppDatabase.favourites, row.toMap());
   }
 
-  Future<List<Favourites>> queryAllRowsF() async
-  {
-    final db = await dbProvider.database;
-    var rows = await db!.query(RecipeAppDatabase.favourites);
-    return rows.map((favourites) => Favourites.fromMap(favourites)).toList();
-  }
-
-  Future<int> queryRowCountF() async
-  {
-    final db = await dbProvider.database;
-    final results = await db!.rawQuery('SELECT COUNT(*) FROM ${RecipeAppDatabase.favourites}');
-    return Sqflite.firstIntValue(results) ?? 0;
-  }
-
   Future<int> updateF(Favourites row) async
   {
     final db = await dbProvider.database;
@@ -236,7 +185,6 @@ class DatabaseOperations
 
   Future<int> deleteF(int id) async
   {
-
     final db = await dbProvider.database;
     return await db!.delete(
       RecipeAppDatabase.favourites,
