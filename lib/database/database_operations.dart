@@ -1,6 +1,5 @@
 import 'package:recipe_meal_planner/database/database.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
-import 'package:sqflite/sqflite.dart';
 
 // Contains all SQLite operations for each table
 class DatabaseOperations
