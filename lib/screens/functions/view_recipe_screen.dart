@@ -139,8 +139,8 @@ class VireRecipeScreenState extends State<ViewRecipeScreen>
 
                             final shoppingRecipe = ShoppingList(
                               id: id,
-                              recipeTitle: widget.recipe.title,
-                              recipeKey: widget.recipe.id,
+                              shoppingTitle: 'Ingredients for ${widget.recipe.title}',
+                              shoppingIngredients: widget.recipe.ingredients,
                             );
 
                             dbOperations.insertS(shoppingRecipe);

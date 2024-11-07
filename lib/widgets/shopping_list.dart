@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
-import 'package:recipe_meal_planner/screens/view_recipe_screen.dart';
+import 'package:recipe_meal_planner/screens/functions/edit_shopping_screen.dart';
+import 'package:recipe_meal_planner/screens/functions/view_recipe_screen.dart';
+import 'package:recipe_meal_planner/screens/functions/view_shopping_screen.dart';
 
 class ShoppingListWidget extends StatelessWidget
 {
@@ -25,8 +27,38 @@ class ShoppingListWidget extends StatelessWidget
         {
           return Dismissible(
             key: Key('${shoppingList[index].id}'),
-            direction: DismissDirection.endToStart,
+            direction: DismissDirection.horizontal,
             background: Container(
+              color: Colors.green,
+              child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 20,
+                    ),
+
+                    Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+
+                    Text(
+                      " Edit",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            secondaryBackground: Container(
               color: Colors.red,
               child: const Align(
                 alignment: Alignment.centerRight,
@@ -68,19 +100,23 @@ class ShoppingListWidget extends StatelessWidget
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>
                     [
-                      Text('  ${shoppingList[index].id}',
+                      Text('  ${shoppingList[index].id}     ',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                       ),
 
-                      Text(shoppingList[index].recipeTitle,
-                        style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                        overflow: TextOverflow.ellipsis,
+                      Expanded(
+                        child: Text(
+                          shoppingList[index].shoppingTitle,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       
                       Padding(
@@ -91,31 +127,16 @@ class ShoppingListWidget extends StatelessWidget
                           ),
                           onPressed: () async
                           {
-                            List<Recipe> recipes = await dbOperations.searchByIdR(shoppingList[index].recipeKey);
                             if(context.mounted)
                             {
-                              if(recipes.isEmpty)
-                              {
-                                dbOperations.deleteS(shoppingList[index].id);
-                                ScaffoldMessenger.of(context).showSnackBar( 
-                                  const SnackBar( 
-                                    content: Text('Recipe does not exist and has been deleted.\nPlease refresh the page.'), 
-                                    duration: Duration(seconds: 2),
-                                  ), 
-                                ); 
-                              }
-
-                              else
-                              {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => ViewRecipeScreen(
-                                      recipe: recipes[0],
+                                    builder: (context) => ViewShoppingScreen(
+                                      shopping: shoppingList[index],
                                     ),
                                   ),
                                 );
-                              }
                             }
                           },
                           child: const Icon(Icons.remove_red_eye, color: Colors.white),
@@ -126,9 +147,28 @@ class ShoppingListWidget extends StatelessWidget
                 ),
               ),
             ),
+            confirmDismiss: (direction) async
+            {
+              if(direction == DismissDirection.startToEnd)
+              {
+                Navigator.push(
+                  context,
+                    MaterialPageRoute(
+                      builder: (context) => EditShoppingScreen(
+                      shopping: shoppingList[index],
+                    ),
+                  ),
+                );
+                return false;
+              }
+              return true;
+            },
             onDismissed: (direction)
             {
-              dbOperations.deleteS(shoppingList[index].id);
+              if(direction == DismissDirection.endToStart)
+              {
+                dbOperations.deleteS(shoppingList[index].id);
+              }
             },
           );
         },

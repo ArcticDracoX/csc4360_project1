@@ -100,7 +100,7 @@ class DatabaseOperations
     return await db!.update(
       RecipeAppDatabase.shoppingList,
       row.toMap(),
-      where: '${RecipeAppDatabase.shoppingList} = ?',
+      where: '${RecipeAppDatabase.shoppingId} = ?',
       whereArgs: [row.id],
     );
   }
@@ -115,12 +115,12 @@ class DatabaseOperations
     );
   }
 
-  Future<List<ShoppingList>> searchByNameS(String keyword) async
+  Future<List<ShoppingList>> searchByIngredientS(String keyword) async
   {
     final db = await dbProvider.database;
     var rows = await db!.query(
       RecipeAppDatabase.shoppingList,
-      where: '${RecipeAppDatabase.shoppingRecipeTitle} LIKE ?',
+      where: '${RecipeAppDatabase.shoppingIngredients} LIKE ?',
       whereArgs: ['%$keyword%']
     );
     return rows.map((shoppingList) => ShoppingList.fromMap(shoppingList)).toList();

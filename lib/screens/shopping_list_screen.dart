@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
+import 'package:recipe_meal_planner/screens/functions/add_shopping_screen.dart';
 import 'package:recipe_meal_planner/widgets/shopping_list.dart';
 
 class ShoppingListScreen extends StatefulWidget {
@@ -49,7 +50,7 @@ class ShoppingListScreenState extends State<ShoppingListScreen> {
                 child: TextField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Search by Recipe Name'
+                    labelText: 'Search by Ingredient'
                   ),
                   onSubmitted: (value)
                   {
@@ -60,7 +61,7 @@ class ShoppingListScreenState extends State<ShoppingListScreen> {
               ),
               
               FutureBuilder(
-                future: dbOperations.searchByNameS(keyword),
+                future: dbOperations.searchByIngredientS(keyword),
                 builder: (context, snapshot)
                 {
                   if(snapshot.connectionState == ConnectionState.done)
@@ -89,6 +90,22 @@ class ShoppingListScreenState extends State<ShoppingListScreen> {
             ],
           ),
         ),
+      ),
+
+       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue.shade300,
+        child: const Icon(Icons.add),
+        onPressed: ()
+        {
+          Navigator.push(context,
+            MaterialPageRoute(
+              builder: (context) => const AddShoppingScreen()
+            ),
+          ).then((_)
+          {
+            setState((){});
+          });
+        },
       ),
     );
   }

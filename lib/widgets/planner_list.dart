@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
-import 'package:recipe_meal_planner/screens/view_recipe_screen.dart';
+import 'package:recipe_meal_planner/screens/functions/view_recipe_screen.dart';
 
 class PlannerList extends StatelessWidget
 {
@@ -68,19 +68,23 @@ class PlannerList extends StatelessWidget
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>
                     [
-                      Text('  ${planner[index].id}',
+                      Text('  ${planner[index].id     }',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                       ),
 
-                      Text(planner[index].recipeTitle,
-                        style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                        overflow: TextOverflow.ellipsis,
+                      Expanded(
+                        child: Text(
+                          planner[index].recipeTitle,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       
                       Padding(

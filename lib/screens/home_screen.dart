@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_meal_planner/database/database_operations.dart';
-import 'package:recipe_meal_planner/screens/add_recipe_screen.dart';
+import 'package:recipe_meal_planner/screens/functions/add_recipe_screen.dart';
 import 'package:recipe_meal_planner/widgets/recipe_list.dart';
 
 class HomeScreen extends StatefulWidget
