@@ -1,7 +1,8 @@
 import 'package:recipe_meal_planner/database/database.dart';
 import 'package:recipe_meal_planner/database/database_items.dart';
 import 'package:sqflite/sqflite.dart';
-  
+
+// Contains all SQLite operations for each table
 class DatabaseOperations
 {
   final dbProvider = RecipeAppDatabase.instance;
@@ -49,7 +50,7 @@ class DatabaseOperations
     );
   }
 
-  Future<List<Recipe>> searchR(String keyword) async
+  Future<List<Recipe>> searchByNameR(String keyword) async
   {
     final db = await dbProvider.database;
     var rows = await db!.query(
@@ -109,7 +110,7 @@ class DatabaseOperations
     final db = await dbProvider.database;
     return await db!.delete(
       RecipeAppDatabase.shoppingList,
-      where: '${RecipeAppDatabase.shoppingList} = ?',
+      where: '${RecipeAppDatabase.shoppingId} = ?',
       whereArgs: [id],
     );
   }

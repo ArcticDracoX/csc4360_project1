@@ -15,6 +15,7 @@ class FavouritesScreen extends StatefulWidget
 
 class FavouritesScreenState extends State<FavouritesScreen> {
   DatabaseOperations dbOperations = DatabaseOperations();
+  String keyword = '';
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +47,24 @@ class FavouritesScreenState extends State<FavouritesScreen> {
                 },
                 child: const Icon(Icons.refresh, color: Colors.white)
               ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Search by Recipe Name'
+                  ),
+                  onSubmitted: (value)
+                  {
+                    keyword = value;
+                    setState((){});
+                  },
+                ),
+              ),
               
               FutureBuilder(
-                future: dbOperations.queryAllRowsF(),
+                future: dbOperations.searchByNameF(keyword),
                 builder: (context, snapshot)
                 {
                   if(snapshot.connectionState == ConnectionState.done)

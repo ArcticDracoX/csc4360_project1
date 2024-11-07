@@ -11,6 +11,7 @@ class ShoppingListScreen extends StatefulWidget {
 
 class ShoppingListScreenState extends State<ShoppingListScreen> {
   DatabaseOperations dbOperations = DatabaseOperations();
+  String keyword = '';
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +43,24 @@ class ShoppingListScreenState extends State<ShoppingListScreen> {
                 },
                 child: const Icon(Icons.refresh, color: Colors.white)
               ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Search by Recipe Name'
+                  ),
+                  onSubmitted: (value)
+                  {
+                    keyword = value;
+                    setState((){});
+                  },
+                ),
+              ),
               
               FutureBuilder(
-                future: dbOperations.queryAllRowsS(),
+                future: dbOperations.searchByNameS(keyword),
                 builder: (context, snapshot)
                 {
                   if(snapshot.connectionState == ConnectionState.done)

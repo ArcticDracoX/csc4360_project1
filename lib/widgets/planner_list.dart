@@ -94,14 +94,28 @@ class PlannerList extends StatelessWidget
                             List<Recipe> recipes = await dbOperations.searchByIdR(planner[index].recipeKey);
                             if(context.mounted)
                             {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ViewRecipeScreen(
-                                    recipe: recipes[0],
+                              if(recipes.isEmpty)
+                              {
+                                dbOperations.deleteP(planner[index].id);
+                                ScaffoldMessenger.of(context).showSnackBar( 
+                                  const SnackBar( 
+                                    content: Text('Recipe does not exist and has been deleted.\nPlease refresh the page.'), 
+                                    duration: Duration(seconds: 2),
+                                  ), 
+                                );
+                              }
+
+                              else
+                              {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ViewRecipeScreen(
+                                      recipe: recipes[0],
+                                    ),
                                   ),
-                                ),
-                              );
+                                );
+                              }
                             }
                           },
                           child: const Icon(Icons.remove_red_eye, color: Colors.white),
@@ -114,14 +128,7 @@ class PlannerList extends StatelessWidget
             ),
             onDismissed: (direction)
             {
-              if(direction == DismissDirection.endToStart)
-              {
-                dbOperations.deleteP(planner[index].id);
-              }
-              if(direction == DismissDirection.startToEnd)
-              {
-                
-              }
+              dbOperations.deleteP(planner[index].id);
             },
           );
         },

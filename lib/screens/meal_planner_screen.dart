@@ -11,6 +11,7 @@ class MealPlannerScreen extends StatefulWidget {
 
 class MealPlannerScreenState extends State<MealPlannerScreen> {
   DatabaseOperations dbOperations = DatabaseOperations();
+  String keyword = '';
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +43,24 @@ class MealPlannerScreenState extends State<MealPlannerScreen> {
                 },
                 child: const Icon(Icons.refresh, color: Colors.white)
               ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Search by Recipe Name'
+                  ),
+                  onSubmitted: (value)
+                  {
+                    keyword = value;
+                    setState((){});
+                  },
+                ),
+              ),
               
               FutureBuilder(
-                future: dbOperations.queryAllRowsP(),
+                future: dbOperations.searchByNameP(keyword),
                 builder: (context, snapshot)
                 {
                   if(snapshot.connectionState == ConnectionState.done)
