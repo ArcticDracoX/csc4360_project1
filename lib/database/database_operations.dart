@@ -171,17 +171,6 @@ class DatabaseOperations
     return await db!.insert(RecipeAppDatabase.favourites, row.toMap());
   }
 
-  Future<int> updateF(Favourites row) async
-  {
-    final db = await dbProvider.database;
-    return await db!.update(
-      RecipeAppDatabase.favourites,
-      row.toMap(),
-      where: '${RecipeAppDatabase.favId} = ?',
-      whereArgs: [row.id],
-    );
-  }
-
   Future<int> deleteF(int id) async
   {
     final db = await dbProvider.database;
